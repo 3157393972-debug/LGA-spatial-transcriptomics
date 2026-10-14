@@ -31,7 +31,7 @@ BASE=/your/workspace DATA_DIR=/your/dlpfc \
   bash scripts/run_full_9pairs_3seeds.sh
 ```
 
-`requirements-not-locked.txt` is a dependency list, **not** a validated environment lock. See `docs/ENVIRONMENT.md` for recorded Python/NumPy/Torch versions and remaining limitations. The historical pipeline may have additional requirements and environment-specific paths. The complete raw-data Figure 2–6 pipeline has not been verified from a clean checkout. Figure 5 and 6 figure *rendering from audited aggregates* works offline.
+`environment.yml` pins 25 paper-specific dependencies to the versions captured in the author-supplied AutoDL environment; **it is provisional and has not been installed in a fresh environment**. See `docs/ENVIRONMENT.md` and run `python3 scripts/check_environment.py` to compare the local setup. The previous `requirements-not-locked.txt` remains only as an unpinned package inventory. The historical pipeline may have additional requirements and environment-specific paths. The complete raw-data Figure 2–6 pipeline has not been verified from a clean checkout. Figure 5 and 6 figure *rendering from audited aggregates* works offline.
 
 ## Mouse experiment: interpretation and boundaries
 
