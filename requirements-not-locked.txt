@@ -1,0 +1,12 @@
+# Dependency names only; not a verified lockfile. Match versions to training environment.
+numpy
+scipy
+pandas
+scikit-learn
+scanpy
+anndata
+scikit-misc
+torch
+matplotlib
+networkx
+python-louvain
