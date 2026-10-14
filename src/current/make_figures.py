@@ -4,8 +4,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 plt.rcParams.update({'font.family':'serif','font.serif':['Liberation Serif','DejaVu Serif'],'font.size':11,'axes.labelsize':12,'axes.titlesize':11,'xtick.labelsize':10,'ytick.labelsize':10,'axes.spines.top':False,'axes.spines.right':False,'savefig.facecolor':'white','axes.linewidth':1.0,'ps.fonttype':42,'pdf.fonttype':42})
-root=Path(__file__).resolve().parent;dst=root/'newfigs';dst.mkdir(exist_ok=True)
-D=json.load(open(root/'raw_sources/e1_preprocessing.json'))
+root=Path(__file__).resolve().parents[2];dst=Path(__import__('os').environ.get('LGA_FIGURE_OUT',str(root/'figures_generated')));dst.mkdir(parents=True,exist_ok=True)
+D=json.load(open(root/'results/figure_inputs/e1_preprocessing.json'))
 A={x['n_hvg']:x for x in D if x['mode']=='independent' and x['n_pca']==50}
 S={x['n_hvg']:x for x in D if x['mode']=='shared' and x['n_pca']==50}
 # Figure 5A: unpaired covariance discrepancy, correctly defined; only paired 1000/2000/3000 conditions
@@ -16,7 +16,7 @@ ax.bar(x+w/2,vals_ind,width=w,color='#4C78A8',edgecolor='black',linewidth=.7,lab
 ax.set_xticks(x,labels=['1,000','2,000','3,000']);ax.set_xlabel('Number of HVGs');ax.set_ylabel('Normalized covariance distance');ax.set_ylim(0,.76);ax.legend(frameon=False,loc='upper left',fontsize=10)
 fig.tight_layout(pad=1.0);fig.savefig(dst/'fig5_a.eps',format='eps',dpi=300);fig.savefig(dst/'fig5_a.pdf',dpi=300);plt.close(fig)
 # Figure 5B: independent encoder parameterization, 12 pairs, five seeds, seeded paired means
-raw=json.load(open(root/'raw_sources/encoder_sharing.json'))['results']+json.load(open(root/'raw_sources/encoder_sharing_cd.json'))
+raw=json.load(open(root/'results/figure_inputs/encoder_sharing.json'))['results']+json.load(open(root/'results/figure_inputs/encoder_sharing_cd.json'))
 G=collections.defaultdict(list)
 for r in raw:G[(r['donor'],r['pair'])].append(r)
 order=sorted(G,key=lambda k:(int(k[0][-1]),k[1]))
@@ -29,7 +29,7 @@ ax.invert_yaxis();ax.set_yticks(y,labels=[f'D{k[0][-1]} {({"151507-151508":"AB",
 ax.legend(frameon=False,loc='upper right',fontsize=9)
 fig.tight_layout(pad=.8);fig.savefig(dst/'fig5_b.eps',format='eps',dpi=300);fig.savefig(dst/'fig5_b.pdf',dpi=300);plt.close(fig)
 # Figure 6: controlled rotation on independent PCA+GraphSAGE (single common protocol)
-pr=list(csv.DictReader(open(root/'fig6/FIG6_18_PAIR_MEANS.csv')))
+pr=list(csv.DictReader(open(root/'results/verified/FIG6_18_PAIR_MEANS.csv')))
 fig,axes=plt.subplots(1,2,figsize=(10.2,3.7),sharey=True)
 for ax,model,title in zip(axes,['graphsage','pca'],['GraphSAGE (independent)','PCA (section-wise)']):
  rows=[r for r in pr if r['model']==model]
