@@ -25,7 +25,7 @@ The launcher (a) trains each section independently and saves NPZ, (b) **replays 
 
 ```bash
 LGA_MOUSE_DATA_DIR=/path/to/mouse_brain LGA_MOUSE_OUT="$PWD/outputs/mouse" \
-  bash scripts/run_mouse_full_target.sh
+  python3 src/current/mouse_full_target_recheck.py
 ```
 
 This is **pseudo-label agreement**: the spatial groups used for evaluation also enter fitting, so it is not independent histological ground truth. Source/target pseudo-group coverage differs. The complete scored target population is used for full-target accuracy.
