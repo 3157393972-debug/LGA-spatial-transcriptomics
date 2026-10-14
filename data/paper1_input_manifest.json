@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "study": "LGA Paper 1 (BIB)",
+  "source": "author-provided BIB_INPUT_HASH_AND_STRUCTURE_20261014.md; recorded 2026-10-14; locally measured on AutoDL; not independently rehashed by this assistant",
+  "description": "Only exact H5AD research input fingerprints. Raw data and expression matrices are NOT distributed with this repository.",
+  "files": [
+    {
+      "id": "151507",
+      "relative_input_path": "j/dlpfc_151507.h5ad",
+      "sha256": "9c6c6db2abad262a69ec3daefed04d8a123871d7961bcc99dc84bff70d374db8",
+      "size_bytes": 73312714,
+      "n_spots": 4226,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:12",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151508",
+      "relative_input_path": "j/dlpfc_151508.h5ad",
+      "sha256": "88b7b878e537766f5c781a54551c139422ba6d88736a54dd23f88a0f46e14d86",
+      "size_bytes": 64486320,
+      "n_spots": 4384,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:12",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151509",
+      "relative_input_path": "j/dlpfc_151509.h5ad",
+      "sha256": "ce6affbc29ae6b7bc7ca7f024b1c831c0d3b356a4280a6fb6e1747e0ae9bb903",
+      "size_bytes": 84257165,
+      "n_spots": 4789,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:13",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151510",
+      "relative_input_path": "j/dlpfc_151510.h5ad",
+      "sha256": "da2b805e4829278667334237eef1a9b08f3eadd3ea05973126335e1a2efe3028",
+      "size_bytes": 77930498,
+      "n_spots": 4634,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:13",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151669",
+      "relative_input_path": "j/dlpfc_151669.h5ad",
+      "sha256": "89fa4fe93a6ef99f6570815a2680a94235c6fb1169ba54f4d0e66e11eb3dd2f3",
+      "size_bytes": 80873925,
+      "n_spots": 3661,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:13",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151670",
+      "relative_input_path": "j/dlpfc_151670.h5ad",
+      "sha256": "f3a641445b20f752cde2d73abfa5081b80bf8d5a0cb55aee71e2076dc4588159",
+      "size_bytes": 72083282,
+      "n_spots": 3498,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:13",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151671",
+      "relative_input_path": "j/dlpfc_151671.h5ad",
+      "sha256": "2b1c1e9d16b4f27ddc21cad14efd0aa42670f41039623d629a2788f0dcd29d16",
+      "size_bytes": 93455526,
+      "n_spots": 4110,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:14",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151672",
+      "relative_input_path": "j/dlpfc_151672.h5ad",
+      "sha256": "94b05c3d3f6a21bab721cacafe7bc098de2e03565433969c8556e9415e893568",
+      "size_bytes": 86510047,
+      "n_spots": 4015,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-09 23:16:14",
+      "provenance_group": "local_spatialLIBD_SCE_conversion"
+    },
+    {
+      "id": "151673",
+      "relative_input_path": "j/dlpfc_151673.h5ad",
+      "sha256": "4df4c3972210b1261e539ffa887c416852ae7e6d09d61dd1533469a3deda80ab",
+      "size_bytes": 68498523,
+      "n_spots": 3611,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-01 10:26:24",
+      "provenance_group": "externally_preprocessed_DLPFC_exact_release_unidentified"
+    },
+    {
+      "id": "151674",
+      "relative_input_path": "j/dlpfc_151674.h5ad",
+      "sha256": "138009a9c58feb2050f6d4b4a42a6127c91e10ba16e10d2a5f58fb07f6c1e0ce",
+      "size_bytes": 83244571,
+      "n_spots": 3635,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-01 10:26:25",
+      "provenance_group": "externally_preprocessed_DLPFC_exact_release_unidentified"
+    },
+    {
+      "id": "151675",
+      "relative_input_path": "j/dlpfc_151675.h5ad",
+      "sha256": "da7d0e2e187d0cca25f2f59792a37a7a472bda6d71bfe289093dedfb649c31e0",
+      "size_bytes": 56242470,
+      "n_spots": 3566,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-01 10:26:25",
+      "provenance_group": "externally_preprocessed_DLPFC_exact_release_unidentified"
+    },
+    {
+      "id": "151676",
+      "relative_input_path": "j/dlpfc_151676.h5ad",
+      "sha256": "40583e98b6fb810a2222f886bf9b714f9092eac4b6732301a11d3da198bc99dc",
+      "size_bytes": 57722815,
+      "n_spots": 3431,
+      "n_genes": 33538,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-01 10:26:25",
+      "provenance_group": "externally_preprocessed_DLPFC_exact_release_unidentified"
+    },
+    {
+      "id": "sagittal_anterior",
+      "relative_input_path": "mouse_brain/sagittal_anterior.h5ad",
+      "sha256": "46f70dd0c87e3711280896c6fa558de70decc96f996b0a85adcbe8b212baada3",
+      "size_bytes": 182687570,
+      "n_spots": 2695,
+      "n_genes": 32285,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-13 12:02:03",
+      "provenance_group": "local_10x_source_conversion"
+    },
+    {
+      "id": "sagittal_posterior",
+      "relative_input_path": "mouse_brain/sagittal_posterior.h5ad",
+      "sha256": "836302dea73aee5a9b77979a22e4ccbaabf551e22004781f8bfd1391cc830c6d",
+      "size_bytes": 182702594,
+      "n_spots": 3355,
+      "n_genes": 32285,
+      "matrix_encoding": "csr_matrix",
+      "local_modified_at": "2026-08-13 12:02:03",
+      "provenance_group": "local_10x_source_conversion"
+    }
+  ],
+  "upstream_cross_checks": {
+    "mouse_10x_filtered_h5_raw_precursors": {
+      "sagittal_anterior": "56078d8d6fe6c13de248fdb1c518b691cdef78fb00021b659786b4a47c6656d5",
+      "sagittal_posterior": "df962209143860488bd679ff7a1b3bb14985208d0929fb814934ba7571c488b6",
+      "scope": "Author report says the local RAW .h5 precursors matched official 10x binaries; these hashes DO NOT refer to processed .h5ad files."
+    },
+    "dlpfc_last_four_barcode_subset_of_official": {
+      "151673": {
+        "missing_official_spots": 28
+      },
+      "151674": {
+        "missing_official_spots": 38
+      },
+      "151675": {
+        "missing_official_spots": 26
+      },
+      "151676": {
+        "missing_official_spots": 29
+      },
+      "scope": "All retained local barcodes reportedly appear in the official matching slice; not an expression-matrix value comparison."
+    }
+  },
+  "excluded_other_project_files": [
+    "dlpfc_Br2720_ant/mid/post",
+    "dlpfc_Br2743_ant/mid/post"
+  ]
+}
