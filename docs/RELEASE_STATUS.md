@@ -1,9 +1,10 @@
-# Release status
+# Current release status — 2026-10-14
 
-This is a **private, preliminary staging repository**, not a verified public reproduction release.
+A 31-file candidate snapshot was uploaded to the **private** repository. Cleanup adds documented analysis entrypoints, unit checks and input summaries. Aggregate/figure regeneration has been checked locally, while raw-data GPU reruns from a fresh checkout remain outstanding.
 
-The full 31-file local candidate package has passed offline ZIP integrity and Python syntax checks, but repository upload is still in progress. The repository presently must not be cited as a complete code release.
+- Aggregate-only checks and plotting may be run without original input matrices.
+- GPU independent-encoder training and historical mouse pipelines **require external raw `.h5ad` files** and matching dependencies; these are not available in this GitHub repository.
+- Syntax, aggregate checks, and illustrative unit tests do **not** constitute independent end-to-end reproduction of the original paper.
+- Figures 2–4 are supported by historical research scripts, which still require separate data/environment verification.
 
-Do not make public until the study authors verify code/data rights, full reproducibility, dataset provenance, and AI use disclosure.
-
-Paper 1 (BIB LGA) is separate from PAPER2_IDENT.
+Do not cite this private staging branch as a final immutable software release or DOI.
