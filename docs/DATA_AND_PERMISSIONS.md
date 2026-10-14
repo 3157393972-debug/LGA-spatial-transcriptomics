@@ -16,8 +16,8 @@ The 14 exact H5AD inputs now have SHA-256 values, file sizes, spot/gene dimensio
 
 | Local source group | Slice IDs | H5AD spots | Input provenance |
 |---|---|---:|---|
-| A (8 files) | 151507–151510, 151669–151672 | 32,317 | Derived in this research workspace from the spatialLIBD SCE, via local R export scripts |
-| B (4 files) | 151673–151676 | 15,243 | **Externally preprocessed H5ADs**, original third-party release unidentified; all retained barcodes reported to be a subset of the matching official slices |
+| A (8 files) | 151507–151510, 151669–151672 | 33,317 | Derived in this research workspace from the spatialLIBD SCE, via local R export scripts |
+| B (4 files) | 151673–151676 | 14,243 | **Externally preprocessed H5ADs**, original third-party release unidentified; all retained barcodes reported to be a subset of the matching official slices |
 
 Group A has synthetic spot indices and only a `spatial` embedding; the original Visium barcodes were not retained. Group B retains real Visium barcodes suffixed with the sample ID and includes `X_scVI` (50 dimensions), `X_C2L` (75 dimensions), and `uns['CN_order']`. These extra embeddings are not evidence that LGA uses them as model features. The reported Group B barcode audit found 0 nonofficial barcodes, with 28, 38, 26 and 29 official spots missing from 151673, 151674, 151675 and 151676 respectively. This is **a barcode-membership check, not an exact expression-matrix comparison**.
 
