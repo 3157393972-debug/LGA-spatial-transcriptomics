@@ -10,12 +10,18 @@
 - **Only these Paper 1 IDs are included:** `151507,151508,151509,151510,151669,151670,151671,151672,151673,151674,151675,151676`.
 - The local input naming convention used by this repository is `dlpfc_<ID>.h5ad`, under the author's local data directory. These H5ADs are **derived local research artifacts**, not filenames of the official downloaded resources.
 
-### Locally reported lineage (to be checked against exact files and scripts)
+### Input H5AD fingerprints (author-generated; 2026-10-14)
 
-| Paper 1 subset | Reported local precursor | Reported conversion | Confidence |
-|---|---|---|---|
-| 151507–151510, 151669–151672 (8 files) | Local `Human_DLPFC_Visium_sce.Rdata` (~407 MB) | `extract_donors_v2.R` → `rds_to_csv_v3.R`; produced around 2026-08-09 | Author-reported on-machine artifact chain; not yet independently audited against official SCE content |
-| 151673–151676 (4 files) | Local individual 10x filtered matrix files | Conversion to H5AD around 2026-08-01 | Author-reported; filtered precursors for **151674–151676** specifically identified; the immediate precursor for **151673** has not yet been documented |
+The 14 exact H5AD inputs now have SHA-256 values, file sizes, spot/gene dimensions and split-provenance flags in [the machine-readable input manifest](../data/paper1_input_manifest.json). The uploaded source is an author-generated read-only AutoDL audit; **the assistant has verified the transcribed entries' structure, not rehashed the 14 raw H5AD bytes independently**.
+
+| Local source group | Slice IDs | H5AD spots | Input provenance |
+|---|---|---:|---|
+| A (8 files) | 151507–151510, 151669–151672 | 32,317 | Derived in this research workspace from the spatialLIBD SCE, via local R export scripts |
+| B (4 files) | 151673–151676 | 15,243 | **Externally preprocessed H5ADs**, original third-party release unidentified; all retained barcodes reported to be a subset of the matching official slices |
+
+Group A has synthetic spot indices and only a `spatial` embedding; the original Visium barcodes were not retained. Group B retains real Visium barcodes suffixed with the sample ID and includes `X_scVI` (50 dimensions), `X_C2L` (75 dimensions), and `uns['CN_order']`. These extra embeddings are not evidence that LGA uses them as model features. The reported Group B barcode audit found 0 nonofficial barcodes, with 28, 38, 26 and 29 official spots missing from 151673, 151674, 151675 and 151676 respectively. This is **a barcode-membership check, not an exact expression-matrix comparison**.
+
+**Correction to earlier provenance inference:** B was *not* generated locally from the original 10x filtered .h5 files. In particular, `151673` has no corresponding precursor in the local `j/dlpfc_raw/` directory. Its exact external processed-data release and the origin of the attached embeddings remain unresolved.
 
 The two paths should **not** be described as a single uniform conversion or pre-normalized dataset. In particular, the official processed spatialLIBD SCE and 10x `filtered_feature_bc_matrix.h5` may differ in prior filtering, matrix representation, gene indexing and availability of layer labels. Ensure each generated H5AD contains raw counts as expected by the analysis and has the correct `obs['layer_guess_reordered']` annotation and `obsm['spatial']` coordinate array. Track the layer-label derivation for the four raw-matrix-converted sections; 10x count H5 files alone do not contain the spatialLIBD expert layer labels.
 
@@ -31,17 +37,13 @@ The separately stored `dlpfc_Br2720_ant/mid/post` and `dlpfc_Br2743_ant/mid/post
 
 ## 3. Verify exact local study inputs without redistributing raw data
 
-On the author's AutoDL machine, from any shell:
+On the author's AutoDL machine, after obtaining the input files at the documented relative paths, check them against the manifest:
 
 ```bash
-for id in 151507 151508 151509 151510 151669 151670 151671 151672 151673 151674 151675 151676; do
-  sha256sum "/root/autodl-tmp/j/dlpfc_${id}.h5ad"
-done
-sha256sum /root/autodl-tmp/mouse_brain/sagittal_anterior.h5ad \
-          /root/autodl-tmp/mouse_brain/sagittal_posterior.h5ad
+python3 scripts/verify_input_manifest.py --data-root /root/autodl-tmp
 ```
 
-Record checksums, precise input dimensions, barcode matching, the presence/source of label and spatial-coordinate columns, R/Python preprocessing script hashes and output QC counts in a **separate validated manifest**. A filename or file modification timestamp alone is **not proof** of exact file identity, dataset version or provenance. Do not claim those hashes have already been checked.
+The verifier streams SHA-256 and checks file size. It **does not** replace inspection of count-matrix semantics, spatial coordinates, cluster/label provenance or the original preprocessing scripts. This work is separate from GPU model reproduction. The author report also records official upstream matrix hashes; these are hashes of **raw .h5 precursors, not processed .h5ad inputs**.
 
 ## 4. Permissions and citations
 
@@ -53,8 +55,8 @@ Record checksums, precise input dimensions, barcode matching, the presence/sourc
 
 ## 5. Outstanding author verification
 
-1. Identify the immediate upstream data/annotation merge path for DLPFC sample **151673**.
-2. Validate that both DLPFC conversion branches lead to the expected count-matrix/annotation conventions; inspect the exact R scripts and any local gene/barcode join logs.
-3. Compute and preserve SHA-256 of all **14** Paper 1 H5AD inputs and a manifest of their dimensions and relevant columns.
-4. Reproduce the mouse pseudo-label experiments on a recorded software environment; do not claim independently verified anatomy labels.
-5. Check dataset attribution and permissions, then obtain author signoff before any public code/data release.
+1. Confirm the exact external processed-data release of DLPFC 151673–151676. Matching official barcodes and gene counts does not prove that expression values and annotations are equivalent.
+2. Check the spatialLIBD SCE preprocessing and synthetic barcode reindexing for the first eight sections, and the origin/consistency of layer labels for all twelve.
+3. Run the newly added manifest verification against the actual 14 files (without uploading raw files) and retain its output.
+4. Test clean-checkout end-to-end model reproduction, including historical and current protocol branches.
+5. Secure author approval for source-code and data-use statements prior to publication.
