@@ -6,7 +6,7 @@
 
 - `src/historical/`: archived scripts used for original analyses. They include historical evaluation conventions and numerical SVD completion; they are kept for provenance, **not** presented as fully equivalent to the revised pipeline.
 - `src/current/`: independent per-section PCA/GraphSAGE experiments, deterministic minimum-change orthogonal completion and unified Figure 6 experiments.
-- `scripts/`: experiment launchers and offline aggregate checks. Original environment-specific launcher is retained separately.
+- `scripts/`: verified offline summaries/figure entrypoints, documented data-dependent GPU launchers. Historical launchers are in `archive/scripts/`.
 - `results/verified/`: audited, selected descriptive CSV summaries, not raw biological input or a complete set of figures/embeddings.
 - `docs/`: data-access requirements and methodological scope.
 
@@ -15,6 +15,8 @@
 ```bash
 python3 -m compileall -q src scripts
 python3 scripts/verify_aggregates.py
+python3 -m unittest discover -s tests -v
+python3 src/current/make_figures.py
 ```
 
 These checks validate syntax and selected summaries; **they are not a new end-to-end training reproduction**.
@@ -29,7 +31,7 @@ BASE=/your/workspace DATA_DIR=/your/dlpfc \
   bash scripts/run_full_9pairs_3seeds.sh
 ```
 
-`requirements-not-locked.txt` is a dependency list, **not** a validated environment lock. The historical pipeline may have additional requirements and environment-specific paths. The complete Figure 2–6 pipeline has not been verified from a clean checkout.
+`requirements-not-locked.txt` is a dependency list, **not** a validated environment lock. See `docs/ENVIRONMENT.md` for recorded Python/NumPy/Torch versions and remaining limitations. The historical pipeline may have additional requirements and environment-specific paths. The complete raw-data Figure 2–6 pipeline has not been verified from a clean checkout. Figure 5 and 6 figure *rendering from audited aggregates* works offline.
 
 ## Mouse experiment: interpretation and boundaries
 
@@ -45,7 +47,7 @@ The additional unrotated LGA-Auto mouse comparison has been executed and indepen
 - Donor/pair/seed observations are nested; technical repeats are not independent biological replicates.
 - Figure 5A and 5B use different covariance discrepancy normalizations; cross-panel values are not directly comparable.
 
-See `docs/PROTOCOL_BOUNDARIES.md` and `docs/DATA_AND_PERMISSIONS.md`.
+For runnable paths and important limits, see `docs/REPRODUCING_RESULTS.md`, `docs/PROTOCOL_BOUNDARIES.md` and `docs/DATA_AND_PERMISSIONS.md`. The single-step analysis wrapper is `scripts/run_independent_and_reanalyse.sh`; it is a **GPU entrypoint not verified in a clean environment**.
 
 ## Before public release
 
