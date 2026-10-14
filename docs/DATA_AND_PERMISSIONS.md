@@ -1,6 +1,6 @@
 # Data sources, local provenance and redistribution policy — Paper 1
 
-**Status (2026-10-14): official upstream dataset identities verified from public documentation; local conversion histories supplied by the authors; local input bytes, exact conversion script revisions and sample-by-sample identity remain to be independently checked.**
+**Status (2026-10-14): official upstream dataset identities verified from public documentation; local conversion histories supplied by the authors; the 14 local input H5AD hashes and HDF5 structures have been audited by the author and matched to this repository's manifest; exact third-party source versions and matrix-level equivalence remain unresolved.**
 
 ## 1. Human DLPFC: 12 slices from the Maynard/spatialLIBD project
 
@@ -23,16 +23,42 @@ Group A has synthetic spot indices and only a `spatial` embedding; the original 
 
 **Correction to earlier provenance inference:** B was *not* generated locally from the original 10x filtered .h5 files. In particular, `151673` has no corresponding precursor in the local `j/dlpfc_raw/` directory. Its exact external processed-data release and the origin of the attached embeddings remain unresolved.
 
-The two paths should **not** be described as a single uniform conversion or pre-normalized dataset. In particular, the official processed spatialLIBD SCE and 10x `filtered_feature_bc_matrix.h5` may differ in prior filtering, matrix representation, gene indexing and availability of layer labels. Ensure each generated H5AD contains raw counts as expected by the analysis and has the correct `obs['layer_guess_reordered']` annotation and `obsm['spatial']` coordinate array. Track the layer-label derivation for the four raw-matrix-converted sections; 10x count H5 files alone do not contain the spatialLIBD expert layer labels.
+The two paths should **not** be described as a single uniform conversion or pre-normalized dataset. In particular, the official processed spatialLIBD SCE and 10x `filtered_feature_bc_matrix.h5` may differ in prior filtering, matrix representation, gene indexing and availability of layer labels. Ensure each generated H5AD contains raw counts as expected by the analysis and has the correct `obs['layer_guess_reordered']` annotation and `obsm['spatial']` coordinate array. Track the layer-label derivation for the four **externally preprocessed** sections. Raw 10x count H5 files alone do not provide the spatialLIBD expert layer labels.
 
 The separately stored `dlpfc_Br2720_ant/mid/post` and `dlpfc_Br2743_ant/mid/post` files are from a **different study/project** and must not be described as Paper 1's 12-slice DLPFC cohort or used as its input here.
+
+### Machine-readable provenance and layer-label completeness (author audit)
+
+An author-provided read-only HDF5 audit dated 2026-10-14 was checked against this repository's `data/paper1_input_manifest.json`. All **14 SHA-256, file sizes and matrix dimensions match** that report; its 14-line `SHA256SUMS_inputs.txt` also matches the source JSON. The input-byte SHA-256 fingerprints were computed in the author's AutoDL environment, **not by an independent download or rerun by the maintainers**.
+
+The structural audit inspected HDF5 metadata, not full count values; therefore agreement on spot counts, gene counts, barcode membership and signatures **does not prove that the expression matrices, gene-name ordering, annotation provenance or preprocessing units are equivalent** between Group A and Group B.
+
+**DLPFC annotation status** (label column `obs['layer_guess_reordered']`):
+
+| Slice | Categories present | Spots missing layer label |
+|---|---|---:|
+| 151507 | Layer 1–6, WM | 5 |
+| 151508 | Layer 1–6, WM | 3 |
+| 151509 | Layer 1–6, WM | 1 |
+| 151510 | Layer 1–6, WM | 39 |
+| 151669 | **Layer 3–6, WM only** | 25 |
+| 151670 | **Layer 3–6, WM only** | 14 |
+| 151671 | **Layer 3–6, WM only** | 17 |
+| 151672 | **Layer 3–6, WM only** | 127 |
+| 151673–151676 (each) | Layer 1–6, WM | 0 |
+
+**Across the first eight sections, 231 spots are missing layer annotations**. The remaining four have no missing layer annotation codes in this audit. Missing categories in 151669–151672 must not be silently interpreted as proof of either complete biological absence or incorrect annotation. Scoring and denominator rules must be documented for every pair, with missing labels excluded only where the protocol explicitly defines that exclusion.
+
+The input H5ADs contain **33,317 Group A + 14,243 Group B = 47,560 DLPFC spots** (all 33,538 genes). The four Group B filtered H5AD files retain 28/38/26/29 fewer spots than their corresponding official 10x filtered-matrix files. Their other latent embeddings are stored in `obsm`, but the current independent PCA/GraphSAGE loader uses `X` and `obsm['spatial']`, rather than `X_scVI`/`X_C2L`.
+
+The author-supplied raw SCE/Python audit report also records a potentially mislabeled **third-party GraphST cache** (`Data/151673` appeared to contain official 151507 input values). That cache is **not one of the 14 H5AD inputs in this manuscript**. Do not substitute third-party datasets solely on the basis of folder names; compare official barcodes and hashes before use.
 
 ## 2. Mouse Visium sagittal anterior/posterior
 
 - Official 10x datasets: [Mouse Brain Serial Section 1 (Sagittal-Anterior)](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0) and [Mouse Brain Serial Section 1 (Sagittal-Posterior)](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-posterior-1-standard-1-1-0), Space Ranger **1.1.0**, released 2020-06-23. Both official dataset pages state **CC BY 4.0**.
 - Official upstream file stems are `V1_Mouse_Brain_Sagittal_Anterior` and `V1_Mouse_Brain_Sagittal_Posterior` (filtered-feature matrix and spatial archive), **not** necessarily the same as local renamed filenames.
-- Author-reported local precursor files: `j/mouse_brain/visium_anterior_filtered_feature_bc_matrix.h5`, the matching anterior spatial archive, and the corresponding posterior files. The author reports conversion through `load_mouse_brain.py`/`sc.read_visium()` on 2026-08-12, followed by local restructuring on 2026-08-13.
-- Exact local Paper 1 input filenames: `mouse_brain/sagittal_anterior.h5ad` and `mouse_brain/sagittal_posterior.h5ad` (~175 MB each as reported). The H5ADs were **generated locally** from public-source input data; their bytes have not yet been cross-verified against the official downloadable matrix/spatial files.
+- Author-reported local precursor files: `j/mouse_brain/visium_anterior_filtered_feature_bc_matrix.h5`, the matching anterior spatial archive, and the corresponding posterior files. The author reports conversion through `load_mouse_brain.py`/`sc.read_visium()` on 2026-08-12, followed by local restructuring on 2026-08-13. The author-reported SHA-256 hashes of the **two local precursor 10x filtered-matrix H5 files** matched their official downloadable counterparts: anterior `56078d8d6fe6c13de248fdb1c518b691cdef78fb00021b659786b4a47c6656d5`, posterior `df962209143860488bd679ff7a1b3bb14985208d0929fb814934ba7571c488b6`.
+- Exact local Paper 1 input filenames: `mouse_brain/sagittal_anterior.h5ad` and `mouse_brain/sagittal_posterior.h5ad` (~175 MB each as reported). The H5ADs were **generated locally** from public-source input data; these processed H5ADs have their **own** recorded hashes and should not be described as byte-identical to the official raw H5. The **input H5ADs contain 2,695 anterior and 3,355 posterior spots** before the experimental dorsal-cortex cropping/filtering step.
 - The mouse benchmark uses **spatially derived pseudo-labels** for alignment and evaluation. It does **not** establish independent ground-truth anatomical transfer accuracy.
 
 ## 3. Verify exact local study inputs without redistributing raw data
@@ -56,7 +82,7 @@ The verifier streams SHA-256 and checks file size. It **does not** replace inspe
 ## 5. Outstanding author verification
 
 1. Confirm the exact external processed-data release of DLPFC 151673–151676. Matching official barcodes and gene counts does not prove that expression values and annotations are equivalent.
-2. Check the spatialLIBD SCE preprocessing and synthetic barcode reindexing for the first eight sections, and the origin/consistency of layer labels for all twelve.
-3. Run the newly added manifest verification against the actual 14 files (without uploading raw files) and retain its output.
+2. Check the spatialLIBD SCE preprocessing and synthetic barcode reindexing for the first eight sections; investigate whether Group B's externally supplied `X` is raw counts and substantiate the origin/consistency of layer annotations for all twelve.
+3. The author input audit generated hashes and structural fingerprints for all 14 H5ADs; run the repository's independent `verify_input_manifest.py` against those existing AutoDL inputs and retain its output.
 4. Test clean-checkout end-to-end model reproduction, including historical and current protocol branches.
 5. Secure author approval for source-code and data-use statements prior to publication.
