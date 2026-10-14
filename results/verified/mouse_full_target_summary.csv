@@ -1,0 +1,5 @@
+condition,mean_all_target_LT,mean_balanced_accuracy,num_seeds,num_target_spots_per_seed,interpretation
+unrotated_baseline,0.114286,0.124941,3,1330,spatial_pseudolabel_consistency_not_anatomical_ground_truth
+unrotated_LGA_Auto,0.473434,0.444744,3,1330,spatial_pseudolabel_consistency_not_anatomical_ground_truth
+rotated_baseline,0.136516,0.129059,3,1330,spatial_pseudolabel_consistency_not_anatomical_ground_truth
+rotated_LGA_Auto,0.464561,0.436323,3,1330,spatial_pseudolabel_consistency_not_anatomical_ground_truth
