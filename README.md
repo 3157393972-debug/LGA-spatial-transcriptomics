@@ -39,6 +39,19 @@ The additional unrotated LGA-Auto mouse comparison has been executed and indepen
 
 **The mouse groups are spatially derived pseudo-labels used both in alignment and scoring. These results do not constitute independent anatomical ground-truth validation.** The mouse `.h5ad` inputs are not redistributed.
 
+## Verified replay status (2026-10-15)
+
+A new set of five offline consistency tests is available:
+
+```bash
+python -m unittest discover -s tests -v
+python scripts/verify_aggregates.py
+```
+
+The author-supplied **saved embedding archive** has now been used to rerun all 54 canonical evaluations and 108 Figure 6 rotated evaluations; the generated CSV files match the repository's verified CSVs **cell for cell**. This is a **latent-level analysis replay**, not re-training from raw count inputs. The technical record, commands and remaining limitations are in [docs/INDEPENDENT_LATENT_REPLAY_20261015.md](docs/INDEPENDENT_LATENT_REPLAY_20261015.md).
+
+The Figure 5B loader has been updated to accept the two stored JSON formats (object with `results` array, or bare array). Its latest clean-checkout figure rendering remains to be tested. Do not announce independent raw-data reproduction or public availability before the release gates are satisfied.
+
 ## Reproducibility notes
 
 - Original Figures 2–4 used historical numerical SVD completion; revised independent analyses use a fixed minimum-change orthogonal completion. These protocols are not numerically interchangeable.
