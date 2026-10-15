@@ -16,7 +16,12 @@ ax.bar(x+w/2,vals_ind,width=w,color='#4C78A8',edgecolor='black',linewidth=.7,lab
 ax.set_xticks(x,labels=['1,000','2,000','3,000']);ax.set_xlabel('Number of HVGs');ax.set_ylabel('Normalized covariance distance');ax.set_ylim(0,.76);ax.legend(frameon=False,loc='upper left',fontsize=10)
 fig.tight_layout(pad=1.0);fig.savefig(dst/'fig5_a.eps',format='eps',dpi=300);fig.savefig(dst/'fig5_a.pdf',dpi=300);plt.close(fig)
 # Figure 5B: independent encoder parameterization, 12 pairs, five seeds, seeded paired means
-raw=json.load(open(root/'results/figure_inputs/encoder_sharing.json'))['results']+json.load(open(root/'results/figure_inputs/encoder_sharing_cd.json'))
+def _encoder_rows(path):
+    data=json.load(open(path))
+    if isinstance(data,list): return data
+    if isinstance(data,dict) and isinstance(data.get('results'),list): return data['results']
+    raise ValueError(f'Unexpected encoder-sharing input format: {path}')
+raw=_encoder_rows(root/'results/figure_inputs/encoder_sharing.json')+_encoder_rows(root/'results/figure_inputs/encoder_sharing_cd.json')
 G=collections.defaultdict(list)
 for r in raw:G[(r['donor'],r['pair'])].append(r)
 order=sorted(G,key=lambda k:(int(k[0][-1]),k[1]))
