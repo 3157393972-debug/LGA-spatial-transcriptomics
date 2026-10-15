@@ -1,6 +1,6 @@
 # Data sources, local provenance and redistribution policy — Paper 1
 
-**Status (2026-10-14): official upstream dataset identities verified from public documentation; local conversion histories supplied by the authors; the 14 local input H5AD hashes and HDF5 structures have been audited by the author and matched to this repository's manifest; exact third-party source versions and matrix-level equivalence remain unresolved.**
+**Status (2026-10-14): official upstream dataset identities verified from public documentation; local conversion histories supplied by the authors; the 14 local input H5AD hashes and HDF5 structures have been audited by the author and matched to this repository's manifest; exact third-party source versions remain unresolved; an author-provided 2026-10-14 numerical audit now reports elementwise equivalence of retained input counts to official 10x matrices (see [audit review](INPUT_MATRIX_AUDIT_20261014.md)).**
 
 ## 1. Human DLPFC: 12 slices from the Maynard/spatialLIBD project
 
@@ -19,11 +19,11 @@ The 14 exact H5AD inputs now have SHA-256 values, file sizes, spot/gene dimensio
 | A (8 files) | 151507–151510, 151669–151672 | 33,317 | Derived in this research workspace from the spatialLIBD SCE, via local R export scripts |
 | B (4 files) | 151673–151676 | 14,243 | **Externally preprocessed H5ADs**, original third-party release unidentified; all retained barcodes reported to be a subset of the matching official slices |
 
-Group A has synthetic spot indices and only a `spatial` embedding; the original Visium barcodes were not retained. Group B retains real Visium barcodes suffixed with the sample ID and includes `X_scVI` (50 dimensions), `X_C2L` (75 dimensions), and `uns['CN_order']`. These extra embeddings are not evidence that LGA uses them as model features. The reported Group B barcode audit found 0 nonofficial barcodes, with 28, 38, 26 and 29 official spots missing from 151673, 151674, 151675 and 151676 respectively. This is **a barcode-membership check, not an exact expression-matrix comparison**.
+Group A has synthetic spot indices and only a `spatial` embedding; the original Visium barcodes were not retained. Group B retains real Visium barcodes suffixed with the sample ID and includes `X_scVI` (50 dimensions), `X_C2L` (75 dimensions), and `uns['CN_order']`. These extra embeddings are not evidence that LGA uses them as model features. The reported Group B barcode audit found 0 nonofficial barcodes, with 28, 38, 26 and 29 official spots missing from 151673, 151674, 151675 and 151676 respectively. The earlier barcode-membership check alone did not establish numerical equality; a subsequent author-provided full matrix audit **reports elementwise equality for all retained spots** (see [audit review](INPUT_MATRIX_AUDIT_20261014.md)), without identifying the exact external H5AD source.
 
 **Correction to earlier provenance inference:** B was *not* generated locally from the original 10x filtered .h5 files. In particular, `151673` has no corresponding precursor in the local `j/dlpfc_raw/` directory. Its exact external processed-data release and the origin of the attached embeddings remain unresolved.
 
-The two paths should **not** be described as a single uniform conversion or pre-normalized dataset. In particular, the official processed spatialLIBD SCE and 10x `filtered_feature_bc_matrix.h5` may differ in prior filtering, matrix representation, gene indexing and availability of layer labels. Ensure each generated H5AD contains raw counts as expected by the analysis and has the correct `obs['layer_guess_reordered']` annotation and `obsm['spatial']` coordinate array. Track the layer-label derivation for the four **externally preprocessed** sections. Raw 10x count H5 files alone do not provide the spatialLIBD expert layer labels.
+The two paths should **not** be described as a single uniform conversion or pre-normalized dataset. In particular, the official processed spatialLIBD SCE and 10x `filtered_feature_bc_matrix.h5` may differ in prior filtering, matrix representation, gene indexing and availability of layer labels. The author's subsequent 2026-10-14 numerical audit reports integer raw UMI counts in all fourteen inputs; nonetheless ensure each generated H5AD continues to contain raw counts as expected by the analysis and has the correct `obs['layer_guess_reordered']` annotation and `obsm['spatial']` coordinate array. Track the layer-label derivation for the four **externally preprocessed** sections. Raw 10x count H5 files alone do not provide the spatialLIBD expert layer labels.
 
 The separately stored `dlpfc_Br2720_ant/mid/post` and `dlpfc_Br2743_ant/mid/post` files are from a **different study/project** and must not be described as Paper 1's 12-slice DLPFC cohort or used as its input here.
 
@@ -31,7 +31,7 @@ The separately stored `dlpfc_Br2720_ant/mid/post` and `dlpfc_Br2743_ant/mid/post
 
 An author-provided read-only HDF5 audit dated 2026-10-14 was checked against this repository's `data/paper1_input_manifest.json`. All **14 SHA-256, file sizes and matrix dimensions match** that report; its 14-line `SHA256SUMS_inputs.txt` also matches the source JSON. The input-byte SHA-256 fingerprints were computed in the author's AutoDL environment, **not by an independent download or rerun by the maintainers**.
 
-The structural audit inspected HDF5 metadata, not full count values; therefore agreement on spot counts, gene counts, barcode membership and signatures **does not prove that the expression matrices, gene-name ordering, annotation provenance or preprocessing units are equivalent** between Group A and Group B.
+The initial structural audit inspected only HDF5 metadata. The subsequent independent-on-machine, author-provided matrix audit reports all 14 retained count matrices matching official filtered 10x counts elementwise; its report and summary JSON were cross-checked for consistency in [INPUT_MATRIX_AUDIT_20261014.md](INPUT_MATRIX_AUDIT_20261014.md). This is **not** an independent rerun by the GitHub maintainer. Exact external H5AD version and Group B layer annotation provenance remain unresolved.
 
 **DLPFC annotation status** (label column `obs['layer_guess_reordered']`):
 
@@ -81,8 +81,8 @@ The verifier streams SHA-256 and checks file size. It **does not** replace inspe
 
 ## 5. Outstanding author verification
 
-1. Confirm the exact external processed-data release of DLPFC 151673–151676. Matching official barcodes and gene counts does not prove that expression values and annotations are equivalent.
-2. Check the spatialLIBD SCE preprocessing and synthetic barcode reindexing for the first eight sections; investigate whether Group B's externally supplied `X` is raw counts and substantiate the origin/consistency of layer annotations for all twelve.
+1. Confirm the exact external processed-data release of DLPFC 151673–151676; count values are reported elementwise identical to official 10x matrices but annotation provenance is still not independently confirmed.
+2. Confirm precise SCE-to-H5AD export script provenance (Group A) and Group B's expert-layer annotation origin. The author-supplied audit reports that all 14 `X` matrices contain raw UMI counts, rather than log-normalized values.
 3. The author input audit generated hashes and structural fingerprints for all 14 H5ADs; run the repository's independent `verify_input_manifest.py` against those existing AutoDL inputs and retain its output.
 4. Test clean-checkout end-to-end model reproduction, including historical and current protocol branches.
 5. Secure author approval for source-code and data-use statements prior to publication.
