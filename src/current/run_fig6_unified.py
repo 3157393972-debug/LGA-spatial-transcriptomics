@@ -8,7 +8,13 @@ from pathlib import Path
 from collections import defaultdict
 import numpy as np
 ROOT=Path(os.environ.get('BIB_FULL9_ROOT','./BIB_PAPER1_INDEPENDENT_FULL_9PAIRS')).expanduser().resolve();OUT=Path(os.environ.get('BIB_FIG6_OUT','./fig6')).expanduser().resolve();OUT.mkdir(parents=True,exist_ok=True)
-spec=importlib.util.spec_from_file_location('original',ROOT/'paper1_independent_jsonfixed.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+from pathlib import Path
+_REPO_SOURCE = Path(__file__).resolve().parent / 'paper1_independent_jsonfixed.py'
+_ARCHIVED_SOURCE = ROOT / 'paper1_independent_jsonfixed.py'
+_SOURCE = _REPO_SOURCE if _REPO_SOURCE.is_file() else _ARCHIVED_SOURCE
+if not _SOURCE.is_file():
+    raise FileNotFoundError(f'No LGA independent source at {_REPO_SOURCE} or {_ARCHIVED_SOURCE}')
+spec=importlib.util.spec_from_file_location('original',_SOURCE);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 pairs=[('151507','151508'),('151508','151509'),('151509','151510'),('151669','151670'),('151670','151671'),('151671','151672'),('151673','151674'),('151674','151675'),('151675','151676')]
 
 def donor_of(s):return 1 if s in {'151507','151508','151509'} else 2 if s in {'151669','151670','151671'} else 3
