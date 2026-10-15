@@ -1,7 +1,12 @@
 import numpy as np,glob,os,importlib.util,json
 from pathlib import Path
 B=Path(os.environ.get('BIB_FULL9_ROOT','./BIB_PAPER1_INDEPENDENT_FULL_9PAIRS')).expanduser().resolve()
-spec=importlib.util.spec_from_file_location('original',B/'paper1_independent_jsonfixed.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+_REPO_SOURCE = Path(__file__).resolve().parent / 'paper1_independent_jsonfixed.py'
+_ARCHIVED_SOURCE = B / 'paper1_independent_jsonfixed.py'
+_SOURCE = _REPO_SOURCE if _REPO_SOURCE.is_file() else _ARCHIVED_SOURCE
+if not _SOURCE.is_file():
+    raise FileNotFoundError(f'No LGA independent source at {_REPO_SOURCE} or {_ARCHIVED_SOURCE}')
+spec=importlib.util.spec_from_file_location('original',_SOURCE);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 max_obj_gap=max_orth=max_change_violation=0.0
 min_Q_singular=1.0
 ranks={}
