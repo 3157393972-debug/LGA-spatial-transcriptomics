@@ -8,7 +8,13 @@ from collections import defaultdict
 import numpy as np
 ROOT=Path(os.environ.get('BIB_FULL9_ROOT','./BIB_PAPER1_INDEPENDENT_FULL_9PAIRS')).expanduser().resolve()
 OUT=Path(os.environ.get('BIB_CANONICAL_OUT','./canonical')).expanduser().resolve();OUT.mkdir(parents=True,exist_ok=True)
-spec=importlib.util.spec_from_file_location('historical_independent',ROOT/'paper1_independent_jsonfixed.py')
+from pathlib import Path
+_REPO_SOURCE = Path(__file__).resolve().parent / 'paper1_independent_jsonfixed.py'
+_ARCHIVED_SOURCE = ROOT / 'paper1_independent_jsonfixed.py'
+_SOURCE = _REPO_SOURCE if _REPO_SOURCE.is_file() else _ARCHIVED_SOURCE
+if not _SOURCE.is_file():
+    raise FileNotFoundError(f'No LGA independent source at {_REPO_SOURCE} or {_ARCHIVED_SOURCE}')
+spec=importlib.util.spec_from_file_location('historical_independent',_SOURCE)
 m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 orig_harmonize=m.harmonize
 cached={}
@@ -72,6 +78,6 @@ for model in ['graphsage','pca']:
     rs=[r for r in records if r['model']==model]
     print(model, 'base',np.mean([r['baseline'] for r in rs]), 'auto',np.mean([r['Auto_conditional'] for r in rs]),'procr',np.mean([r['Auto_procrustes_only'] for r in rs]),'oracle',np.mean([r['Oracle_conditional'] for r in rs]),'improved',sum(r['delta_auto']>0 for r in rs), 'n',len(rs))
 for r in summary: print('DONOR',r)
-info={'n_records':len(records),'default_replay_mismatch':len(comparisons),'completion':'min_change_sensitivity_only','rank_cutoff_rel':1e-6,'source_snapshot':str(ROOT),'source_py_sha256':hashlib.sha256((ROOT/'paper1_independent_jsonfixed.py').read_bytes()).hexdigest(),'summary':summary}
+info={'n_records':len(records),'default_replay_mismatch':len(comparisons),'completion':'min_change_sensitivity_only','rank_cutoff_rel':1e-6,'source_snapshot':str(ROOT),'source_py_sha256':hashlib.sha256(_SOURCE.read_bytes()).hexdigest(),'summary':summary}
 (OUT/'RUN_MANIFEST.json').write_text(json.dumps(info,indent=2))
 print('DONE',OUT)
