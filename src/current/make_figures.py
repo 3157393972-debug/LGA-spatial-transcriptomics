@@ -21,7 +21,7 @@ def _encoder_rows(path):
     if isinstance(data,list): return data
     if isinstance(data,dict) and isinstance(data.get('results'),list): return data['results']
     raise ValueError(f'Unexpected encoder-sharing input format: {path}')
-raw=_encoder_rows(root/'results/figure_inputs/encoder_sharing.json')+_encoder_rows(root/'results/figure_inputs/encoder_sharing_cd.json')
+raw=_encoder_rows(root/'results/figure_inputs/encoder_sharing.json')
 G=collections.defaultdict(list)
 for r in raw:G[(r['donor'],r['pair'])].append(r)
 order=sorted(G,key=lambda k:(int(k[0][-1]),k[1]))
