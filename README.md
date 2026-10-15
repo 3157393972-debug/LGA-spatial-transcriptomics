@@ -2,6 +2,26 @@
 
 **Private staging repository — not yet a public, complete end-to-end reproduction release.**  This repository holds research code and selected verified aggregate results for Paper 1, a *Briefings in Bioinformatics* revision. It is distinct from the later `PAPER2_IDENT` project.
 
+## Publication-facing structure (review branch)
+
+The author-facing, minimal entrypoints are:
+
+- `lga/`: **post-hoc geometric LGA core** (thin import facade, no new algorithm, wraps `src/current/paper1_independent_jsonfixed.py`).
+- `experiments/`: **training and evaluation instructions**; working scientific implementations stay in `src/current/` and `src/historical/` to preserve numerical provenance.
+- `reproduce/`: **Figure 5/6 and aggregate-only reproduction**. Run `python reproduce/make_figures.py`.
+- `tests/`: result and import regression checks.
+- `results/verified/` and `results/figure_inputs/`: essential non-private numerical tables.
+
+This is a **compatibility-first reorganization**, not a file relocation. The `src/current/` and `scripts/` legacy entrypoints continue to work. The optional `lga` facade is not a claim that all source-independent workflows are available without the original biological data. Figure 1's editable schematic source is not required for the computational artifact.
+
+```bash
+python -m unittest discover -s tests -v
+python scripts/verify_aggregates.py
+python reproduce/make_figures.py
+```
+
+The GitHub Actions offline job now installs the packages needed for both figure rendering and core-import smoke tests. A **passing real GitHub Actions run** must still be observed before release; the repository is private. See `reproduce/README.md` and `docs/REPRODUCING_RESULTS.md`.
+
 ## Code layout
 
 - `src/historical/`: archived scripts used for original analyses. They include historical evaluation conventions and numerical SVD completion; they are kept for provenance, **not** presented as fully equivalent to the revised pipeline.
