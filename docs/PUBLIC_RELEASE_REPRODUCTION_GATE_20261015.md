@@ -1,3 +1,9 @@
+## Verified GitHub Actions status (2026-10-15)
+
+Actual PR #1 head `9e9305a6730fcf1d4063121dd5384406a6278045` has a **successful completed** workflow run **38678949265**, `Offline reproducibility checks`. The run's single job `verify-aggregates-and-figures` passed Python 3.10 setup, plotting/core-dependency installation, compileall, archived-aggregate verification, offline `unittest discover`, Figure 5/6 regeneration, output-file checks and artifact upload. [Inspect GitHub Actions run](https://github.com/3157393972-debug/LGA-spatial-transcriptomics/actions/runs/38678949265).
+
+This closes the **real clean-checkout offline/aggregate smoke-test** gap on the PR branch. It does **not** resolve raw-input GraphSAGE training, mouse control, historical Figure 2–4 reproduction, redistribution rights, repository/history security audit, or final license approval. The main branch does not yet include the PR's `lga/`, `reproduce/` and import compatibility tests. Do not mark full scientific end-to-end reproduction complete.
+
 # Paper 1: publication and clean-room reproduction gate (15 Oct 2026)
 
 **Current status: NOT RELEASE-READY. This is a verification plan, not a claim of completed model reruns.** Repository remains private. Do not announce a public reproducibility package until the checks below pass.
