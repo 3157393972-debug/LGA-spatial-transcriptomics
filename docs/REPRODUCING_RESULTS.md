@@ -5,10 +5,9 @@
 ```bash
 python3 scripts/verify_aggregates.py
 python3 -m unittest discover -s tests -v
-python3 src/current/make_figures.py
 ```
 
-`make_figures.py` consumes `results/figure_inputs/*.json` and `results/verified/FIG6_18_PAIR_MEANS.csv`; output is `figures_generated/`, not committed. Figure 5A normalized covariance distance and Figure 5B unnormalized Frobenius covariance distance have incompatible units. These files reproduce the **revised figures from audited aggregate input**, not original model training.
+Saved figure-related numerical inputs remain in `results/figure_inputs/` and `results/verified/`. Pure drawing scripts and generated PDF/EPS figures are excluded from this minimal code release. Figure 5A normalized covariance distance and Figure 5B unnormalized Frobenius covariance distance have incompatible units. Aggregate checks do **not** reproduce original model training.
 
 ## Independent GraphSAGE/PCA from raw 12-slice DLPFC dataset (GPU, NOT clean-room tested)
 
