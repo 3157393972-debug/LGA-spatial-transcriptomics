@@ -8,19 +8,18 @@ The author-facing, minimal entrypoints are:
 
 - `lga/`: **post-hoc geometric LGA core** (thin import facade, no new algorithm, wraps `src/current/paper1_independent_jsonfixed.py`).
 - `experiments/`: **training and evaluation instructions**; working scientific implementations stay in `src/current/` and `src/historical/` to preserve numerical provenance.
-- `reproduce/`: **Figure 5/6 and aggregate-only reproduction**. Run `python reproduce/make_figures.py`.
+- `reproduce/`: **numerical result checks only**, without drawing code.
 - `tests/`: result and import regression checks.
 - `results/verified/` and `results/figure_inputs/`: essential non-private numerical tables.
 
-This is a **compatibility-first reorganization**, not a file relocation. The `src/current/` and `scripts/` legacy entrypoints continue to work. The optional `lga` facade is not a claim that all source-independent workflows are available without the original biological data. Figure 1's editable schematic source is not required for the computational artifact.
+This is a **compatibility-first reorganization**, not a file relocation. The `src/current/` and `scripts/` legacy entrypoints continue to work. The optional `lga` facade is not a claim that all source-independent workflows are available without the original biological data. Figure drawing scripts and Figure 1's editable schematic source are excluded; verified numerical evidence and experimental programs remain.
 
 ```bash
 python -m unittest discover -s tests -v
 python scripts/verify_aggregates.py
-python reproduce/make_figures.py
 ```
 
-The GitHub Actions offline job now installs the packages needed for both figure rendering and core-import smoke tests. A **passing real GitHub Actions run** must still be observed before release; the repository is private. See `reproduce/README.md` and `docs/REPRODUCING_RESULTS.md`.
+The GitHub Actions offline job now installs the packages needed for core numerical and import smoke tests. A **passing real GitHub Actions run** must still be observed before release; the repository is private. See `reproduce/README.md` and `docs/REPRODUCING_RESULTS.md`.
 
 ## Code layout
 
@@ -36,7 +35,6 @@ The GitHub Actions offline job now installs the packages needed for both figure 
 python3 -m compileall -q src scripts
 python3 scripts/verify_aggregates.py
 python3 -m unittest discover -s tests -v
-python3 src/current/make_figures.py
 ```
 
 These checks validate syntax and selected summaries; **they are not a new end-to-end training reproduction**.
@@ -51,7 +49,7 @@ BASE=/your/workspace DATA_DIR=/your/dlpfc \
   bash scripts/run_full_9pairs_3seeds.sh
 ```
 
-`environment.yml` pins 25 paper-specific dependencies to the versions captured in the author-supplied AutoDL environment; **it is provisional and has not been installed in a fresh environment**. See `docs/ENVIRONMENT.md` and run `python3 scripts/check_environment.py` to compare the local setup. The previous `requirements-not-locked.txt` remains only as an unpinned package inventory. The historical pipeline may have additional requirements and environment-specific paths. The complete raw-data Figure 2–6 pipeline has not been verified from a clean checkout. Figure 5 and 6 figure *rendering from audited aggregates* works offline.
+`environment.yml` pins 25 paper-specific dependencies to the versions captured in the author-supplied AutoDL environment; **it is provisional and has not been installed in a fresh environment**. See `docs/ENVIRONMENT.md` and run `python3 scripts/check_environment.py` to compare the local setup. The previous `requirements-not-locked.txt` remains only as an unpinned package inventory. The historical pipeline may have additional requirements and environment-specific paths. The complete raw-data Figure 2–6 pipeline has not been verified from a clean checkout. Figure 5/6 numerical aggregate checks work offline; figure-rendering code is intentionally omitted.
 
 ## Mouse experiment: interpretation and boundaries
 
@@ -70,7 +68,7 @@ python scripts/verify_aggregates.py
 
 The author-supplied **saved embedding archive** has now been used to rerun all 54 canonical evaluations and 108 Figure 6 rotated evaluations; the generated CSV files match the repository's verified CSVs **cell for cell**. This is a **latent-level analysis replay**, not re-training from raw count inputs. The technical record, commands and remaining limitations are in [docs/INDEPENDENT_LATENT_REPLAY_20261015.md](docs/INDEPENDENT_LATENT_REPLAY_20261015.md).
 
-The Figure 5B loader has been updated to accept the two stored JSON formats (object with `results` array, or bare array). Its latest clean-checkout figure rendering remains to be tested. Do not announce independent raw-data reproduction or public availability before the release gates are satisfied.
+The saved Figure 5/6 numerical inputs are retained for traceability; pure figure-rendering scripts are excluded from this minimal release. Do not announce independent raw-data reproduction or public availability before the release gates are satisfied.
 
 ## Reproducibility notes
 
