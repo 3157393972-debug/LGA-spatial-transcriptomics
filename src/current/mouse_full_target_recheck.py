@@ -10,8 +10,8 @@ R = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(R)
 from sklearn.preprocessing import normalize
 
-DATA_DIR = os.environ.get('LGA_MOUSE_DATA_DIR','/root/autodl-tmp/mouse_brain')
-OUT_DIR = os.environ.get('LGA_MOUSE_OUT','/root/autodl-tmp/lga_paper_experiments')
+DATA_DIR = os.environ.get('LGA_MOUSE_DATA_DIR',str(Path.cwd()/'data'/'mouse_brain'))
+OUT_DIR = os.environ.get('LGA_MOUSE_OUT',str(Path.cwd()/'outputs'/'mouse'))
 os.makedirs(OUT_DIR, exist_ok=True)
 seeds = [42, 123, 456]
 
