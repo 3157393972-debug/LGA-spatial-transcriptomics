@@ -327,7 +327,7 @@ def cli(args):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser()
-    p.add_argument('--data-dir',default='/root/autodl-tmp/j')
+    p.add_argument('--data-dir',default=os.environ.get('LGA_DATA_DIR', './data'))
     p.add_argument('--output',default='./BIB_PAPER1_INDEPENDENT_RESULTS')
     p.add_argument('--source',default='151507');p.add_argument('--target',default='151508')
     p.add_argument('--seeds',type=int,nargs='+',default=[42,123,456])

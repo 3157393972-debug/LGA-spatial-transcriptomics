@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-BASE="${BASE:-/root/autodl-tmp}"
+BASE="${BASE:-$(pwd)}"
 DATA_DIR="${DATA_DIR:-${BASE}/j}"
 OUT="${OUT:-${BASE}/BIB_PAPER1_INDEPENDENT_FULL_9PAIRS}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

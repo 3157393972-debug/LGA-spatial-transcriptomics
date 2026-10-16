@@ -3,6 +3,9 @@ name: Offline reproducibility checks
 on:
   push:
     paths:
+      - 'lga/**'
+      - 'experiments/**'
+      - 'reproduce/**'
       - 'src/**'
       - 'scripts/**'
       - 'tests/**'
