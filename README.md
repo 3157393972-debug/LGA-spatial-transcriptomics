@@ -20,7 +20,7 @@ python scripts/verify_aggregates.py
 python reproduce/make_figures.py
 ```
 
-The GitHub Actions offline job now installs the packages needed for both figure rendering and core-import smoke tests. A **passing real GitHub Actions run** must still be observed before release; the repository is private. See `reproduce/README.md` and `docs/REPRODUCING_RESULTS.md`.
+The GitHub Actions offline job now installs the packages needed for both figure rendering and core-import smoke tests. A **real GitHub Actions run** on PR #1 at commit `9e9305a6730fcf1d4063121dd5384406a6278045` passed on 2026-10-15 (12 offline tests, aggregate checks, and six Figure 5/6 PDF/EPS files). This validates only the committed offline outputs, **not** raw-H5AD training, original Figures 2–4, clean environment installation, data provenance, or release rights. The repository remains private. See `reproduce/README.md` and `docs/REPRODUCING_RESULTS.md`.
 
 ## Code layout
 
