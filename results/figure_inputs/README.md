@@ -1,3 +1,8 @@
-# Figure 5 input provenance
+# Archived numeric inputs
 
-These JSON files contain **aggregate-only** values derived from the authors' audited original figure inputs. The `encoder_sharing.json` entries store 12 donor–pair means across 5 seeds; they are not 60 independent biological measurements. `encoder_sharing_cd.json` is retained as an empty compatibility list for the archival plotting script. Figure 5A CD is normalized; Figure 5B uses unnormalized covariance Frobenius distance. These input summaries reproduce the *rendered figure*, not the upstream expression-matrix computations.
+These are numeric aggregates used for the manuscript's covariance analyses, **not figure-generation instructions**.
+
+- `e1_preprocessing.json` stores six matched shared/independent HVG conditions.
+- `encoder_sharing.json` stores 12 donor–pair summaries over five seeds.
+
+Figure 5A and Figure 5B use differently normalized covariance distances and must not be compared as absolute quantities. The records do not substitute for raw expression matrices.

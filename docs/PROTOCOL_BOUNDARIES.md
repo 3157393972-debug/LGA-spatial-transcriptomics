@@ -1,11 +1,10 @@
-# Scientific provenance, non-equivalence, and negative cases
+# Scientific protocol boundaries
 
-1. Original Fig. 2–4: historical jointly trained model, default `numpy.linalg.svd` completion; original recovery percentages 81.4/78.3/66.1, not rescored with canonical completion.
-2. Independent arm: each DLPFC section performs its own HVG, PCA and/or GraphSAGE, no cross-section MNN or inter-section contrastive loss, minimum-change orthogonal completion; canonical CSV contains 54 pair-seed-model records, PCA replicates identical across three nominal seeds.
-3. New Fig. 5A and 5B use covariance discrepancies with DIFFERENT normalizations and thus incomparable absolute units; this replaces an incorrectly described historical PD, not a repaired PD.
-4. New Fig. 6 compares two methods, GraphSAGE and PCA, under a common transfer direction and geometric protocol. Earlier four-model claims cannot be inferred from this result.
-5. Mouse results use spatial pseudo-labels both for alignment groups and assessment, and DO NOT independently demonstrate anatomy-level prediction.
-6. The unrotated+Auto mouse result has been evaluated on all 1,330 post-QC target spots in a separate rerun: full-target LT 0.114286 -> 0.473434. It is a pseudo-label endpoint, not independent anatomical validation; do not combine it with the historical mouse row from a different run.
-7. Natural mismatch historical data can retain class-intersection masking and should be treated as exploratory/descriptive.
-8. SVD canonical completion is a fixed geometry-only choice, not selected using ground-truth target labels or LT.
-9. All reported pair-seed statistics are nested in 9 pairs / 3 donors; do not claim 27 independent biological samples.
+1. Original Figures 2–4: joint-training historical model with numerical SVD completion; the historical recovery rates must not be compared as if recomputed with revised completion.
+2. Independent section experiments: independent HVG and encoder construction; min-change Procrustes, saved as 54 section-pair/model/seed records. PCA values are deterministic across nominal seed repeats.
+3. Figure 5A covariance discrepancy is normalized; Figure 5B unnormalized Frobenius distance is a different quantity.
+4. **Main Figure 6** uses PCA, random projection, GCN-AE, and VAE under archived source-to-target, no-ZCA settings. Its experimental history differs from independent GraphSAGE/PCA.
+5. **Supplementary Figure S2** uses independently constructed GraphSAGE/PCA embeddings, target-to-source LT, conditional ZCA and min-change completion. Existing CSVs labeled `FIG6_108_ROTATIONS.csv` refer to an earlier figure-numbering convention and support Supplementary Figure S2, not the main Figure 6.
+6. Mouse spatial pseudo-labels are used for both grouping and assessment. Mouse full-target calculations are exploratory and are not independent anatomical ground truth.
+7. Natural mismatch results can use historical class-intersection evaluation masking; treat them as descriptive.
+8. Donor/pair/seed observations are nested, not independent biological replicates. Full raw-data reproduction and unresolved input provenance should not be claimed complete.

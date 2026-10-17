@@ -21,16 +21,13 @@ class FigureInputTests(unittest.TestCase):
         })
         self.assertTrue(all(math.isfinite(x) and x >= 0 for x in key_to_value.values()))
 
-    def test_figure5_encoder_inputs_accept_two_formats(self):
-        values = []
-        for filename in ("encoder_sharing.json", "encoder_sharing_cd.json"):
-            obj = json.loads((DATA / filename).read_text())
-            rows = obj if isinstance(obj, list) else obj["results"]
-            self.assertIsInstance(rows, list)
-            values.extend(rows)
-        self.assertEqual(len(values), 12)
+    def test_covariance_encoder_numeric_inputs(self):
+        obj = json.loads((DATA / "encoder_sharing.json").read_text())
+        rows = obj if isinstance(obj, list) else obj["results"]
+        self.assertIsInstance(rows, list)
+        self.assertEqual(len(rows), 12)
         seen = set()
-        for r in values:
+        for r in rows:
             key = (r["donor"], r["pair"])
             self.assertNotIn(key, seen)
             seen.add(key)

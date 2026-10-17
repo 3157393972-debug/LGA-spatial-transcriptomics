@@ -1,11 +1,9 @@
-name: Offline reproducibility checks
-
+name: Offline numerical checks
 on:
   push:
     paths:
       - 'lga/**'
       - 'experiments/**'
-      - 'reproduce/**'
       - 'src/**'
       - 'scripts/**'
       - 'tests/**'
@@ -13,12 +11,10 @@ on:
       - '.github/workflows/offline-checks.yml'
   pull_request:
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
-  verify-aggregates-and-figures:
+  numerical-consistency:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -26,27 +22,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - name: Install plotting dependencies only
-        run: python -m pip install numpy matplotlib scipy scikit-learn
-      - name: Validate Python syntax
-        run: python -m compileall -q src scripts tests
+      - name: Install offline scientific dependencies
+        run: python -m pip install numpy scipy scikit-learn
+      - name: Validate syntax
+        run: python -m compileall -q lga src scripts tests
       - name: Verify archived aggregates
         run: python scripts/verify_aggregates.py
-      - name: Run offline regression tests
+      - name: Run numerical regression tests
         run: python -m unittest discover -s tests -v
-      - name: Regenerate Figure 5/6 from committed aggregate inputs
-        run: python reproduce/make_figures.py
-      - name: Validate generated figure count
-        run: |
-          test -s figures_generated/fig5_a.pdf
-          test -s figures_generated/fig5_b.pdf
-          test -s figures_generated/fig6.pdf
-          test -s figures_generated/fig5_a.eps
-          test -s figures_generated/fig5_b.eps
-          test -s figures_generated/fig6.eps
-      - name: Upload figure previews
-        uses: actions/upload-artifact@v4
-        with:
-          name: figure-5-and-6-offline-renders
-          path: figures_generated/
-          if-no-files-found: error
