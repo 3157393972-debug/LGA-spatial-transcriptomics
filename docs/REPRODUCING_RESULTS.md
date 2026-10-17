@@ -23,11 +23,11 @@ DATA_DIR=/path/to/dlpfc OUT="$PWD/outputs/independent" \
 
 The launcher performs independent training, archived-score verification and fixed minimum-change Procrustes reevaluation. It does **not** generate manuscript figures. It has not been verified in a clean-room GPU rerun.
 
-The separately stored Supplementary Figure S2 rotation results remain in `results/verified/FIG6_108_ROTATIONS.csv`, `FIG6_18_PAIR_MEANS.csv` and `FIG6_DONOR_MEANS.csv` under their **historical filenames**. These files are **not** the final paper's four-representation Figure 6. The optional source script formerly called `run_fig6_unified.py` has been removed from this model-only publication surface; it remains in prior Git history, and the numerical CSVs remain testable. The filename correspondence is historical, not a scientific equivalence claim.
+The separately stored Supplementary Figure S2 rotation results remain in `results/verified/FIG6_108_ROTATIONS.csv`, `FIG6_18_PAIR_MEANS.csv` and `FIG6_DONOR_MEANS.csv` under their **historical filenames**. These files are **not** the final paper's four-representation Figure 6. The numerical CSVs can be verified offline, but this repository does not provide a complete runnable from-input reproduction of those rotations. The filename correspondence is historical, not a scientific equivalence claim.
 
 ## Main Figure 6 and original experiments
 
-Main Figure 6 tests PCA, random projection, GCN-AE and VAE in the source-to-target historical protocol. The corresponding experimental code belongs to `src/historical/`, which is retained for provenance. Original Figures 2–4 also use historical implementations. They have not passed full original-input independent reruns; `docs/PROTOCOL_BOUNDARIES.md` explains the differences.
+Main Figure 6 tests PCA, random projection, GCN-AE and VAE in the source-to-target historical protocol. `src/historical/` retains parts of the original cross-method implementations. It does not contain a verified complete runnable implementation for every method in the final four-representation Figure 6; the historical numerical outputs are separately archived. Original Figures 2–4 also use historical implementations. They have not passed full original-input independent reruns; `docs/PROTOCOL_BOUNDARIES.md` explains the differences.
 
 ## Mouse experiment
 
