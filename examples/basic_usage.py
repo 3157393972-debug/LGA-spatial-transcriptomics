@@ -29,7 +29,6 @@ def main():
     aligned_source, aligned_target, info = harmonize(
         source, target, source_groups, target_groups,
         whitening="conditional", tau=0.1,
-        completion="min_change_sensitivity_only",
     )
 
     assert aligned_source.shape == aligned_target.shape == (n, dimension)
