@@ -27,7 +27,7 @@ The separately stored Supplementary Figure S2 rotation results remain in `result
 
 ## Main Figure 6 and original experiments
 
-Main Figure 6 tests PCA, random projection, GCN-AE and VAE in the source-to-target historical protocol. The corresponding experimental code belongs to `src/historical/`, which is retained for provenance. Original Figures 2–4 also use historical implementations. They have not passed full original-input independent reruns; `docs/PROTOCOL_BOUNDARIES.md` explains the differences.
+Main Figure 6 tests PCA, random projection, GCN-AE and VAE in the source-to-target historical protocol. `src/historical/` retains parts of the original cross-method implementations. It does not contain a verified complete runnable implementation for every method in the final four-representation Figure 6; the historical numerical outputs are separately archived. Original Figures 2–4 also use historical implementations. They have not passed full original-input independent reruns; `docs/PROTOCOL_BOUNDARIES.md` explains the differences.
 
 ## Mouse experiment
 
