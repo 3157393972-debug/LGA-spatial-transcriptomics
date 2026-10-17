@@ -16,12 +16,11 @@ conda activate lga-bib-paper1
 python scripts/check_environment.py --strict
 python scripts/verify_aggregates.py
 python -m unittest discover -s tests -v
-python src/current/make_figures.py
 ```
 
 `environment.yml` pins **25 top-level packages** using versions observed in the supplied `pip freeze`. It is **not** a complete transitive lockfile, and its installation has **not** yet been verified in a fresh container. Installation of PyTorch with CUDA may require a platform-specific wheel index; the YAML pins **2.5.1** instead of the vendor-local `2.5.1+cu124` wheel suffix. If byte-level GPU parity is required, choose the appropriate official PyTorch CUDA 12.4 wheel after recording the GPU/driver and re-run verification. CPU and GPU execution are not guaranteed bitwise-identical.
 
-The full AutoDL `pip freeze` contained approximately 267 distributions, including tooling for other projects. The repository does not need to ship unrelated Jupyter, cloud, or second-paper STAligner packages. This is a minimal **direct-dependency** record, rather than a claim that the whole historical base image has been reproduced.
+The full AutoDL `pip freeze` contained approximately 267 distributions, including tooling for other projects. The environment focuses on the packages used by these experiments. This is a minimal **direct-dependency** record, rather than a claim that the whole historical base image has been reproduced.
 
 ## Numerical and biological caveats
 
@@ -30,7 +29,7 @@ The full AutoDL `pip freeze` contained approximately 267 distributions, includin
 - The original historical Figure 2–4 SVD completion and newer minimum-change completion are different protocols. They remain explicitly separated in source and result provenance.
 - `python` was absent as a bare executable in the reported container; activating a conda environment normally supplies `python`. When working directly in the original container, use `python3` if necessary.
 
-## Still required for public release
+## Further reproducibility checks
 
 1. Test `conda env create` and import/smoke tests from a clean Linux installation; record resolved packages (e.g., `conda list --explicit` or an export plus the GPU wheel details).
 2. Run the documented end-to-end raw-data workflows on legally obtained inputs and compare Figure 2–6 and mouse evaluations with manuscript outputs.
