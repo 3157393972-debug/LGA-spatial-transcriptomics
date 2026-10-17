@@ -2,7 +2,7 @@
 
 **Scope:** This is an actual rerun of the analysis on author-provided **saved 32-dimensional independent section-wise embedding NPZs**, not a rerun of GraphSAGE learning on raw `.h5ad` input. The archive `BIB_PAPER1_INDEPENDENT_FULL_9PAIRS.tar.gz` (216 archive members) was staged outside the source repository. No private embeddings or input matrices were committed.
 
-## Executed
+## Archived latent-level evaluation (2026-10-15)
 
 A Python 3.13 runtime with available NumPy/SciPy/scikit-learn (not the historically captured Python 3.10.12+Scanpy runtime) was used for the computational replay. `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1`.
 
@@ -13,14 +13,13 @@ export BIB_FIG6_OUT=/path/to/replay/fig6
 mkdir -p "$BIB_CANONICAL_OUT" "$BIB_FIG6_OUT"
 python src/current/recompute_canonical.py
 python src/current/verify_canonical_math.py
-python src/current/run_fig6_unified.py
 python scripts/verify_aggregates.py
 python -m unittest discover -s tests -v
 ```
 
-The scripts now prefer the **versioned repository copy** `src/current/paper1_independent_jsonfixed.py` rather than requiring an external second copy of this Python source. The results still require the original NPZs and 54 pair JSON files under `BIB_FULL9_ROOT`. The sampled source copy in the archive and the staged repository source were byte-identical (SHA-256: `b26b37198b81f689d858c7874f6abea81b4c5c733f47504bceb39df0073a8212`).
+The 108-rotation regeneration was performed with the historical analysis utility, which is not included in the current streamlined distribution. The retained CSV outputs can still be checked using `python -m unittest discover -s tests -v`. The remaining scripts prefer the **versioned repository copy** `src/current/paper1_independent_jsonfixed.py` rather than requiring an external second copy of this Python source. The results still require the original NPZs and 54 pair JSON files under `BIB_FULL9_ROOT`. The sampled source copy in the archive and the staged repository source were byte-identical (SHA-256: `b26b37198b81f689d858c7874f6abea81b4c5c733f47504bceb39df0073a8212`).
 
-## Results from actual latent rerun
+## Archived replay results
 
 | Check | Observed | Saved GitHub results |
 |---|---|---|
