@@ -89,6 +89,7 @@ Input preparation, identifiers, annotation requirements and sources are describe
 | `scripts/` | Experiment entrypoints and validation utilities |
 | `examples/` | Minimal API usage |
 | `results/` | Selected numerical outputs |
+| `data/` | Input manifest and provenance fingerprints |
 | `tests/` | Regression and consistency tests |
 | `docs/` | Data requirements and experimental details |
 
