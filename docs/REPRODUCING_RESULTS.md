@@ -1,39 +1,36 @@
-# Reproducing Paper 1 results
+# Reproducing the numerical results
 
-## Offline / no raw datasets (tested separately)
+This repository distributes **model, evaluation and numeric verification code only**; figure rendering scripts are not included.
+
+## Offline result checks
 
 ```bash
+python3 -m compileall -q lga src scripts tests
 python3 scripts/verify_aggregates.py
 python3 -m unittest discover -s tests -v
-python3 src/current/make_figures.py
 ```
 
-`make_figures.py` consumes `results/figure_inputs/*.json` and `results/verified/FIG6_18_PAIR_MEANS.csv`; output is `figures_generated/`, not committed. Figure 5A normalized covariance distance and Figure 5B unnormalized Frobenius covariance distance have incompatible units. These files reproduce the **revised figures from audited aggregate input**, not original model training.
+These verify selected saved numeric summaries, including the 54 independent section/model/seed records and 108 rotated GraphSAGE/PCA records underlying **Supplementary Figure S2**. They do not train models from biological count inputs.
 
-## Independent GraphSAGE/PCA from raw 12-slice DLPFC dataset (GPU, NOT clean-room tested)
+## Independent section-based experiments
 
-Provide 12 `dlpfc_<slice>.h5ad` with `obsm['spatial']`, count matrix, and annotation column `obs['layer_guess_reordered']` (used for evaluation/Oracle only). Check exact preprocessing and data rights before use. Fix the environment to match manuscript-associated experiments. Then:
+The data-dependent workflow requires the 12 local DLPFC `dlpfc_<section>.h5ad` files with spatial coordinates and the expected annotations, plus the training environment:
 
 ```bash
-DATA_DIR=/path/to/dlpfc BASE="$PWD" OUT="$PWD/outputs/independent" \
-  bash scripts/run_independent_and_reanalyse.sh
+DATA_DIR=/path/to/dlpfc OUT="$PWD/outputs/independent" \
+ bash scripts/run_independent_and_reanalyse.sh
 ```
 
-The launcher (a) trains each section independently and saves NPZ, (b) **replays the historical evaluation** and fails if stored LT scores disagree, (c) applies minimum-change orthogonal completion, (d) generates unified Figure 6 CSV. It needs several GPU hours depending on resources. Results can differ from paper if data preprocessing, model libraries or numerical environments differ. The code currently requires external dependencies not pinned to a validated lockfile.
+The launcher performs independent training, archived-score verification and fixed minimum-change Procrustes reevaluation. It does **not** generate manuscript figures. It has not been verified in a clean-room GPU rerun.
 
-## Mouse full-target pseudo-label validation (GPU, NOT clean-room tested)
+The separately stored Supplementary Figure S2 rotation results remain in `results/verified/FIG6_108_ROTATIONS.csv`, `FIG6_18_PAIR_MEANS.csv` and `FIG6_DONOR_MEANS.csv` under their **historical filenames**. These files are **not** the final paper's four-representation Figure 6. The optional source script formerly called `run_fig6_unified.py` has been removed from this model-only publication surface; it remains in prior Git history, and the numerical CSVs remain testable. The filename correspondence is historical, not a scientific equivalence claim.
 
-```bash
-LGA_MOUSE_DATA_DIR=/path/to/mouse_brain LGA_MOUSE_OUT="$PWD/outputs/mouse" \
-  python3 src/current/mouse_full_target_recheck.py
-```
+## Main Figure 6 and original experiments
 
-This is **pseudo-label agreement**: the spatial groups used for evaluation also enter fitting, so it is not independent histological ground truth. Source/target pseudo-group coverage differs. The complete scored target population is used for full-target accuracy.
+Main Figure 6 tests PCA, random projection, GCN-AE and VAE in the source-to-target historical protocol. The corresponding experimental code belongs to `src/historical/`, which is retained for provenance. Original Figures 2–4 also use historical implementations. They have not passed full original-input independent reruns; `docs/PROTOCOL_BOUNDARIES.md` explains the differences.
 
-## Original Figure 2–4
+## Mouse experiment
 
-See `src/historical/` and `docs/PROTOCOL_BOUNDARIES.md`. Older scripts depend on original data layout and do not constitute a one-command reproducible setup. The current minimum-change completion does not retrospectively apply to those historical summaries.
+`src/current/mouse_full_target_recheck.py` performs numerical mouse evaluation given external inputs. Its spatial pseudo-groups are used for alignment and scoring, so no independent anatomical ground truth is claimed.
 
-## Data and software rights
-
-See `docs/DATA_AND_PERMISSIONS.md` and repository README. No raw Visium matrices or patient-related embeddings are redistributed here; confirm licenses before public release.
+See `docs/DATA_AND_PERMISSIONS.md` and `docs/ENVIRONMENT.md` before attempting raw-data reproduction.
