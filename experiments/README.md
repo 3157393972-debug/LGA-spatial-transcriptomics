@@ -6,4 +6,4 @@ From the repository root, run `bash scripts/run_independent_and_reanalyse.sh` af
 
 The new `lga/` facade exposes the post-hoc geometric operators, not a new algorithm implementation. Historical numerical SVD completion and the frozen minimum-change completion are different evaluation protocols. Do not conflate them.
 
-See `docs/REPRODUCING_RESULTS.md`, `docs/INDEPENDENT_LATENT_REPLAY_20261015.md`, and `docs/PUBLIC_RELEASE_REPRODUCTION_GATE_20261015.md`.
+See `docs/REPRODUCING_RESULTS.md`, `docs/INDEPENDENT_LATENT_REPLAY_20261015.md`, and `docs/ENVIRONMENT.md`.

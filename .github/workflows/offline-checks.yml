@@ -26,6 +26,10 @@ jobs:
         run: python -m pip install numpy scipy scikit-learn
       - name: Validate syntax
         run: python -m compileall -q lga src scripts tests
+      - name: Run minimal LGA example
+        run: python examples/basic_usage.py
+      - name: Verify input manifest metadata
+        run: python scripts/verify_input_manifest.py --metadata-only --data-root .
       - name: Verify archived aggregates
         run: python scripts/verify_aggregates.py
       - name: Run numerical regression tests
