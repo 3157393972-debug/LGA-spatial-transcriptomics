@@ -104,3 +104,7 @@ If you use LGA, please cite the associated manuscript:
   note = {Manuscript}
 }
 ```
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Copyright (c) 2026 Bojia Jia and Ping Yang.
