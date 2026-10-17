@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - 'lga/**'
-      - 'experiments/**'
       - 'src/**'
       - 'scripts/**'
       - 'tests/**'
