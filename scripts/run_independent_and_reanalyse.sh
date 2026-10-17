@@ -5,7 +5,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 export OUT="${OUT:-${PWD}/LGA_FULL9_OUTPUT}"
 export DATA_DIR="${DATA_DIR:?Set DATA_DIR to directory containing dlpfc_<section>.h5ad}"
-export BASE="${BASE:-${PWD}"
+export BASE="${BASE:-${PWD}}"
 export BIB_FULL9_ROOT="$OUT"
 export BIB_CANONICAL_OUT="${CANONICAL_OUT:-$OUT/canonical}"
 mkdir -p "$OUT" "$BIB_CANONICAL_OUT"
