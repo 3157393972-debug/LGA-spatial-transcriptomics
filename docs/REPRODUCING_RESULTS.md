@@ -12,6 +12,16 @@ python3 -m unittest discover -s tests -v
 
 These verify selected saved numeric summaries, including the 54 independent section/model/seed records and 108 rotated GraphSAGE/PCA records underlying **Supplementary Figure S2**. They do not train models from biological count inputs.
 
+## Supplementary Figure S1B group-count sensitivity
+
+The numerical values are in `results/s1b_group_count_relative.json`. To recalculate them from the nine paired Donor 1 CHNA latent NPZ files saved from the main controlled experiment, run:
+
+```bash
+python scripts/recompute_s1b_numeric.py /path/to/latent results/s1b_group_count_relative.json
+```
+
+The calculation holds each saved embedding and its ten rotations fixed across group counts. The absolute K=7 mean in this repeat is 0.4460, compared with 0.444 in Table S1 from the original model fits; Supplementary Figure S1B displays the paired within-repeat differences from K=7. The latent NPZ inputs are not redistributed in this repository. This script calculates numerical results only and does not render the figure.
+
 ## Independent section-based experiments
 
 The data-dependent workflow requires the 12 local DLPFC `dlpfc_<section>.h5ad` files with spatial coordinates and the expected annotations, plus the training environment:
