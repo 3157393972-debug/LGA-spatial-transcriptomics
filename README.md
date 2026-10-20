@@ -1,15 +1,15 @@
 # LGA: Latent Geometry Adjustment for Spatial Transcriptomics
 
-**Latent Geometry Adjustment (LGA)** is a post-hoc method for harmonizing latent coordinates across spatial transcriptomics sections. Given section-level embeddings and corresponding anatomical or spatial groups, LGA conditionally applies covariance whitening and estimates an orthogonal Procrustes transformation. The representation encoders do not need to be retrained during this adjustment.
+**Latent Geometry Adjustment (LGA)** harmonizes pre-computed representations across spatial transcriptomics sections. Given section embeddings and corresponding anatomical or ordered spatial groups, LGA conditionally applies covariance whitening and estimates an orthogonal Procrustes transformation.
 
 ## Method
 
 LGA supports two correspondence settings:
 
-- **LGA-Auto:** constructs ordered groups from tissue spatial coordinates without using spot-level anatomical labels for fitting. It nevertheless requires an anatomically meaningful spatial-depth axis and a grouping resolution appropriate for the tissue.
-- **LGA-Oracle:** uses supplied anatomical labels to form correspondences. Results evaluated using those same labels are correspondence-informed diagnostics, not independent label-free validation.
+- **LGA-Auto** constructs ordered groups from a biologically interpretable spatial-depth axis. The group count should reflect the tissue organization.
+- **LGA-Oracle** forms group correspondences from supplied anatomical labels. Its results are interpreted as correspondence-informed analyses.
 
-The alignment takes source and target embedding matrices with the same latent dimension, plus one group assignment per spot in each section. The implementation provides conditional ZCA whitening and orthogonal Procrustes alignment. See [protocol boundaries](docs/PROTOCOL_BOUNDARIES.md) for differences between the original and independent-representation experiments.
+The source and target embeddings must have the same latent dimension, with one group assignment per spot in each section.
 
 ## Installation
 
@@ -20,63 +20,61 @@ conda env create -f environment.yml
 conda activate lga-bib-paper1
 ```
 
-The environment records versions from the research setup; it is not a validated, platform-independent lockfile. See [environment and dependencies](docs/ENVIRONMENT.md) for details.
+Dependencies and platform setup are described in [Environment](docs/ENVIRONMENT.md).
 
 ## Quick start
 
-Run the complete, synthetic example:
+Run the example on simulated section embeddings:
 
 ```bash
 python examples/basic_usage.py
 ```
 
-The example imports `auto_groups`, `axis_from_source`, and `harmonize` from `lga`. It builds spatial-depth groups, aligns simulated embeddings, and reports alignment diagnostics. No biological datasets are needed. The example uses the API's default SVD-based Procrustes completion; experiment-specific minimum-change completion is documented separately. This is an API demonstration, not biological validation.
+The example constructs ordered spatial groups, applies LGA and prints alignment diagnostics. The API's SVD-based Procrustes completion and the completion used in specific experiments are described in the [protocol guide](docs/PROTOCOL_BOUNDARIES.md).
 
-## Reproducing numerical results
+## Numerical results and analysis
 
-Run the offline consistency checks:
+Check the included numerical summaries and run the software tests:
 
 ```bash
 python scripts/verify_aggregates.py
 python -m unittest discover -s tests -v
 ```
 
-These checks test the algorithm and verify selected archived numerical outputs; they do **not** retrain models from raw expression matrices.
-
-For the independent GraphSAGE/PCA experiments, prepare the required DLPFC AnnData files, then run:
+Run the independent GraphSAGE and PCA section analyses with local DLPFC input files:
 
 ```bash
 DATA_DIR=/path/to/dlpfc OUT="$PWD/outputs/independent" \
   bash scripts/run_independent_and_reanalyse.sh
 ```
 
-This workflow requires external data and additional scientific dependencies; a clean-environment, end-to-end rerun has not been established. The paired controlled-rotation experiments, independently fitted section experiments, and four-representation Figure 6 use distinct evaluation protocols. See [reproduction instructions](docs/REPRODUCING_RESULTS.md) before comparing their results.
+Input identifiers, analysis entry points and the distinct evaluation protocols are described in [Reproducing results](docs/REPRODUCING_RESULTS.md) and [Protocol guide](docs/PROTOCOL_BOUNDARIES.md).
 
 ## Data
 
-The human dorsolateral prefrontal cortex sections are from the [Maynard/spatialLIBD dataset](https://research.libd.org/spatialLIBD/), and the mouse-brain sections are from [10x Genomics](https://www.10xgenomics.com/datasets). Raw or processed expression matrices are not redistributed here. The repository provides input identifiers, a local-input manifest and data-access guidance in [Data and provenance](docs/DATA_AND_PERMISSIONS.md).
+The human DLPFC sections are available through [spatialLIBD](https://research.libd.org/spatialLIBD/). The mouse-brain sections are available from [10x Genomics](https://www.10xgenomics.com/datasets). Section identifiers and input guidance are listed in [Data and provenance](docs/DATA_AND_PERMISSIONS.md).
 
 ## Repository structure
 
 | Path | Contents |
 | --- | --- |
 | `lga/` | LGA public API |
-| `src/current/` | Independent embedding experiments and evaluation |
-| `src/historical/` | Historical experimental implementations |
-| `scripts/` | Numerical checks and experiment entry points |
-| `examples/` | Synthetic API example |
-| `tests/` | Unit and regression tests |
-| `results/` | Selected archived numerical results |
-| `data/` | Input manifest and fingerprints |
-| `docs/` | Reproduction, data provenance and protocol guidance |
+| `src/current/` | Independent representation experiments and evaluation |
+| `src/historical/` | Controlled-perturbation experiment implementations |
+| `scripts/` | Numerical checks and analysis entry points |
+| `examples/` | Simulated usage example |
+| `tests/` | Software and regression tests |
+| `results/` | Numerical results |
+| `data/` | Input identifiers and fingerprints |
+| `docs/` | Analysis protocols, data sources and environment guidance |
 
 ## Citation
 
-This repository accompanies the following unpublished manuscript:
+This repository accompanies the manuscript:
 
 **Bojia Jia and Ping Yang.** *Latent Coordinate Compatibility in Spatial Transcriptomics: Anatomy-Guided Post-hoc Geometric Harmonization of Section-Specific Representations* (2026).
 
-The bibliographic citation and DOI will be updated when publication details are available.
+The bibliographic citation and DOI will be updated upon publication.
 
 ## License
 
