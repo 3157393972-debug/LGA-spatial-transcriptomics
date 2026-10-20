@@ -76,6 +76,3 @@ This repository accompanies the manuscript:
 
 The bibliographic citation and DOI will be updated upon publication.
 
-## License
-
-The source code is distributed under the [MIT License](LICENSE). Copyright (c) 2026 Bojia Jia and Ping Yang.
