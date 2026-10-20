@@ -50,7 +50,7 @@ DATA_DIR=/path/to/dlpfc OUT="$PWD/outputs/independent" \
   bash scripts/run_independent_and_reanalyse.sh
 ```
 
-This workflow requires external data and additional scientific dependencies; a clean-environment, end-to-end rerun has not been established. The original controlled-rotation experiments, independent-representation experiments, main Figure 6 and Supplementary Figure S2 use distinct evaluation protocols. See [reproduction instructions](docs/REPRODUCING_RESULTS.md) before comparing their results.
+This workflow requires external data and additional scientific dependencies; a clean-environment, end-to-end rerun has not been established. The paired controlled-rotation experiments, independently fitted section experiments, and four-representation Figure 6 use distinct evaluation protocols. See [reproduction instructions](docs/REPRODUCING_RESULTS.md) before comparing their results.
 
 ## Data
 
