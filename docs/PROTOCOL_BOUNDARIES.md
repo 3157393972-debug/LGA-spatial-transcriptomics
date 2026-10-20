@@ -1,10 +1,15 @@
-# Scientific protocol boundaries
+# Evaluation protocols
 
-1. Original Figures 2–4: joint-training historical model with numerical SVD completion; the historical recovery rates must not be compared as if recomputed with revised completion.
-2. Independent section experiments: independent HVG and encoder construction; min-change Procrustes, saved as 54 section-pair/model/seed records. PCA values are deterministic across nominal seed repeats.
-3. Figure 5A covariance discrepancy is normalized; Figure 5B unnormalized Frobenius distance is a different quantity.
-4. **Main Figure 6** uses PCA, random projection, GCN-AE, and VAE under archived source-to-target, no-ZCA settings. Its experimental history differs from independent GraphSAGE/PCA.
-5. An additional archived rotation analysis uses independently constructed GraphSAGE/PCA embeddings, target-to-source LT, conditional ZCA and min-change completion. CSVs labeled `FIG6_108_ROTATIONS.csv` follow an earlier figure-numbering convention; they do not support a figure in the revised manuscript or the main four-representation Figure 6.
-6. Mouse spatial pseudo-labels are used for both grouping and assessment. Mouse full-target calculations are exploratory and are not independent anatomical ground truth.
-7. Natural mismatch results can use historical class-intersection evaluation masking; treat them as descriptive.
-8. Donor/pair/seed observations are nested, not independent biological replicates. Full raw-data reproduction and unresolved input provenance should not be claimed complete.
+The manuscript evaluates latent-coordinate compatibility under several settings. Each setting uses the correspondence and scoring rules specified for that experiment.
+
+| Analysis | Representation and correspondence | Evaluation |
+| --- | --- | --- |
+| Controlled perturbation, Figures 2–4 | Paired training followed by orthogonal perturbations; numerical SVD Procrustes completion | Anatomical label transfer across DLPFC sections |
+| Representation-construction mismatch, Figure 5 | Shared or section-specific feature selection and encoder parameters | Whole-section covariance distances and correspondence-informed LGA-Oracle |
+| Independent-section analyses, Tables S7–S8 | Separately fitted GraphSAGE and PCA representations; minimum-change Procrustes completion | Pair-level and donor-level label transfer and balanced accuracy |
+| Main Figure 6 | PCA, random projection, GCN-AE and VAE under controlled perturbation | Source-to-target nearest-neighbor label transfer |
+| Mouse dorsal-cortex analysis, Table S5 | Ordered spatial pseudo-groups for fitting | Full-target transfer of those spatial pseudo-groups |
+
+LGA-Auto forms correspondences from an ordered spatial axis and a tissue-informed group count. LGA-Oracle forms correspondences from anatomical labels. In the mouse analysis, the pseudo-groups also define the scoring labels. Donors, section pairs, seeds and rotations have different replication roles and are identified with their results.
+
+The independently fitted GraphSAGE/PCA rotation CSVs in `results/verified/` retain filenames from an earlier analysis. The manuscript's main Figure 6 refers to the four-representation analysis listed above.
