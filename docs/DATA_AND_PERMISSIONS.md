@@ -26,4 +26,4 @@ Place the study inputs under a local data root and compare their SHA-256 hashes 
 python scripts/verify_input_manifest.py --data-root /path/to/data
 ```
 
-The manuscript and its data sources should be cited alongside any reuse of these analysis files. The repository's MIT License applies to the source code.
+The manuscript and its data sources should be cited alongside any reuse of these analysis files.
