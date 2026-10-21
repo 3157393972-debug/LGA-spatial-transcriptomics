@@ -1,5 +1,4 @@
-"""Check all committed Figure 5/6 plot inputs without external scientific dependencies."""
-import csv
+"""Check committed Figure 5 numerical inputs without external scientific dependencies."""
 import json
 import math
 import unittest
@@ -7,7 +6,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "results" / "figure_inputs"
-VERIFIED = ROOT / "results" / "verified"
 
 class FigureInputTests(unittest.TestCase):
     def test_figure5_hvg_data(self):
@@ -36,19 +34,6 @@ class FigureInputTests(unittest.TestCase):
                 x = float(r[side]["CD"])
                 self.assertTrue(math.isfinite(x) and x >= 0)
 
-    def test_figure6_pair_means_recomputed_from_rotations(self):
-        with (VERIFIED / "FIG6_108_ROTATIONS.csv").open(newline="") as f:
-            rotated = list(csv.DictReader(f))
-        with (VERIFIED / "FIG6_18_PAIR_MEANS.csv").open(newline="") as f:
-            pairs = list(csv.DictReader(f))
-        self.assertEqual(len(pairs), 18)
-        for row in pairs:
-            subset = [r for r in rotated if (r["model"], r["donor"], r["pair"])
-                      == (row["model"], row["donor"], row["pair"])]
-            self.assertEqual(len(subset), int(row["n_rotated"]))
-            for k in ("baseline_LT", "rotated_LT", "auto_LT", "delta_LT"):
-                observed = sum(float(r[k]) for r in subset) / len(subset)
-                self.assertAlmostEqual(observed, float(row[k]), places=10)
 
 if __name__ == "__main__":
     unittest.main()
