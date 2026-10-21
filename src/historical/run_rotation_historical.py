@@ -356,8 +356,8 @@ def compute_lt(H_s, H_t, labels_s, labels_t):
     H_t_n = normalize(H_t, norm='l2', axis=1)
     nn_idx = (H_t_n @ H_s_n.T).argmax(axis=1)
     transferred = labels_s[nn_idx]
-    common = np.intersect1d(np.unique(labels_t), np.unique(transferred))
-    mask = np.isin(labels_t, common) & np.isin(transferred, common)
+    common = np.intersect1d(np.unique(labels_s), np.unique(labels_t))
+    mask = np.isin(labels_t, common)
     if mask.sum() == 0:
         return 0.0
     return np.mean(labels_t[mask] == transferred[mask])
