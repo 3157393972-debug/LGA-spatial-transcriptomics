@@ -86,14 +86,14 @@ def evaluate_lt_both(H_s, H_t, labels_s, labels_t):
     return ret, nn_idx
 
 print('='*70)
-print('MOUSE CORTEX (DORSAL SAGITTAL) LGA-AUTO EXPERIMENT')
+print('COORDINATE-SELECTED MOUSE SAGITTAL LGA-AUTO EXPERIMENT')
 print('='*70)
 
 # Load
 adata_a = filter_nan(sc.read_h5ad(f'{DATA_DIR}/sagittal_anterior.h5ad'))
 adata_p = filter_nan(sc.read_h5ad(f'{DATA_DIR}/sagittal_posterior.h5ad'))
 
-# Crop to dorsal cortex (top 40% of y)
+# Retain spots above each section's 60th percentile of the second spatial coordinate
 y_thresh_a = np.percentile(adata_a.obsm['spatial'][:,1], 60)
 y_thresh_p = np.percentile(adata_p.obsm['spatial'][:,1], 60)
 cortex_a = adata_a[adata_a.obsm['spatial'][:,1] > y_thresh_a].copy()
@@ -203,7 +203,7 @@ aggregate = {k: float(np.mean([r[k] for r in results])) for k in fields}
 print('\nSUMMARY: ' + ' '.join(f'{k}={v:.4f}' for k,v in aggregate.items()), flush=True)
 
 with open(f'{OUT_DIR}/mouse_cortex_sagittal_full_target_checked.json', 'w') as f:
-    json.dump({'dataset': 'Mouse_Cortex_Sagittal',
+    json.dump({'dataset': 'Mouse_Sagittal_Coordinate_Selected',
         'annotation_type': 'spatial surrogate labels; NOT anatomical ground truth',
         'protocol': 'historical training and LGA, with both historical-masked and full-target LT; 10 rotations per seed',
         'source_surrogate_class_counts': {str(k): int(v) for k,v in zip(*np.unique(labels_a, return_counts=True))},
