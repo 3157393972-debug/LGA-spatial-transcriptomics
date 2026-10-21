@@ -34,7 +34,14 @@ This workflow fits section-specific GraphSAGE and PCA representations and evalua
 
 ## Other analysis entry points
 
-- `src/historical/` contains controlled-perturbation experiment implementations.
+The paired controlled-perturbation entry point reads `dlpfc_<section>.h5ad` input files and writes donor JSON summaries:
+
+```bash
+DATA_DIR=/path/to/dlpfc OUT_DIR="$PWD/outputs/paired" \
+  python src/historical/unified_experiment_historical.py
+```
+
+The historical script imports its bundled `run_rotation_historical.py` implementation. It requires the listed scientific dependencies and local study inputs; numerical differences can arise across training environments. The saved result tables are provided separately under `results/`.
 - `src/current/mouse_full_target_recheck.py` evaluates mouse full-target spatial pseudo-group transfer using local inputs.
 - The main Figure 6 evaluates PCA, random projection, GCN-AE and VAE representations under its source-to-target transfer protocol.
 
