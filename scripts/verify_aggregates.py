@@ -21,5 +21,5 @@ for model,expected_base,expected_auto in [('graphsage',0.2857,0.4528),('pca',0.4
     print(f'{model}: n={len(group)}, baseline={base:.6f}, fixed-Auto={after:.6f}')
 r6=read('FIG6_108_ROTATIONS.csv')
 assert len(r6)==108, len(r6)
-print('figure6:',len(r6),'rotation records (81 GraphSAGE + 27 PCA)')
+print('independent-section rotation archive:',len(r6),'records (81 GraphSAGE + 27 PCA)')
 print('Descriptive CSV verification PASSED; this does not verify raw-data reproduction.')
