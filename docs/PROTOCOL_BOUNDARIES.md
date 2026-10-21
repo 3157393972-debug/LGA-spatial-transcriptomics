@@ -14,4 +14,3 @@ For paired human LT and the S1B group-count analysis, the target set is defined 
 
 LGA-Auto forms correspondences from an ordered spatial axis and a tissue-informed group count. LGA-Oracle forms correspondences from anatomical labels. In the mouse analysis, the pseudo-groups also define the scoring labels. Donors, section pairs, seeds and rotations have different replication roles and are identified with their results.
 
-The independently fitted GraphSAGE/PCA rotation CSVs in `results/verified/` retain filenames from an earlier analysis. The manuscript's main Figure 6 refers to the four-representation analysis listed above.
