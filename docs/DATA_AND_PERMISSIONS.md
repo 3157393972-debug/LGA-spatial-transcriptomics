@@ -16,7 +16,7 @@ Anatomical annotations use the spatialLIBD `layer_guess_reordered` field. For D3
 
 ## Mouse brain sections
 
-The mouse analyses use 10x Genomics Mouse Brain Serial Section 1, [Sagittal-Anterior](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0) and [Sagittal-Posterior](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-posterior-1-standard-1-1-0). The local analysis files are `mouse_brain/sagittal_anterior.h5ad` and `mouse_brain/sagittal_posterior.h5ad`; their fingerprints are included in the input manifest. The evaluation selects dorsal-cortex spots and defines spatial pseudo-groups for correspondence and scoring.
+The mouse analyses use 10x Genomics Mouse Brain Serial Section 1, [Sagittal-Anterior](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-anterior-1-standard-1-1-0) and [Sagittal-Posterior](https://www.10xgenomics.com/datasets/mouse-brain-serial-section-1-sagittal-posterior-1-standard-1-1-0). The local analysis files are `mouse_brain/sagittal_anterior.h5ad` and `mouse_brain/sagittal_posterior.h5ad`; their fingerprints are included in the input manifest. The evaluation retains spots with a second spatial coordinate above the section-specific 60th percentile. Spatial-neighborhood Louvain communities ordered by projection onto a source-derived axis define pseudo-groups for correspondence and scoring. This coordinate rule is not an anatomical boundary.
 
 ## Checking local inputs
 
