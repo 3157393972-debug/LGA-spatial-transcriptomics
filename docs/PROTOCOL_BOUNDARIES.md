@@ -10,6 +10,8 @@ The manuscript evaluates latent-coordinate compatibility under several settings.
 | Main Figure 6 | PCA, random projection, GCN-AE and VAE under controlled perturbation | Source-to-target nearest-neighbor label transfer |
 | Mouse dorsal-cortex analysis, Table S5 | Ordered spatial pseudo-groups for fitting | Full-target transfer of those spatial pseudo-groups |
 
+For paired human LT and the S1B group-count analysis, the target set is defined by anatomical classes present in both sections and is held fixed across evaluated conditions.
+
 LGA-Auto forms correspondences from an ordered spatial axis and a tissue-informed group count. LGA-Oracle forms correspondences from anatomical labels. In the mouse analysis, the pseudo-groups also define the scoring labels. Donors, section pairs, seeds and rotations have different replication roles and are identified with their results.
 
 The independently fitted GraphSAGE/PCA rotation CSVs in `results/verified/` retain filenames from an earlier analysis. The manuscript's main Figure 6 refers to the four-representation analysis listed above.
