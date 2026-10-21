@@ -98,7 +98,7 @@ y_thresh_a = np.percentile(adata_a.obsm['spatial'][:,1], 60)
 y_thresh_p = np.percentile(adata_p.obsm['spatial'][:,1], 60)
 cortex_a = adata_a[adata_a.obsm['spatial'][:,1] > y_thresh_a].copy()
 cortex_p = adata_p[adata_p.obsm['spatial'][:,1] > y_thresh_p].copy()
-print(f'Anterior cortex: {cortex_a.shape[0]} spots, Posterior cortex: {cortex_p.shape[0]} spots')
+print(f'Anterior selected subset: {cortex_a.shape[0]} spots, Posterior selected subset: {cortex_p.shape[0]} spots')
 
 # Depth axis from cortex of anterior
 axis_a = fit_depth_hull_normal(cortex_a)
@@ -121,7 +121,7 @@ print(f'Axis consistency |cos| = {cos_theta:.4f}')
 cortex_a = auto_label_louvain(cortex_a, axis_a)
 cortex_p = auto_label_louvain(cortex_p, axis_a)
 
-for name, ad in [('Anterior', cortex_a), ('Posterior', cortex_p)]:
+for name, ad in [('Anterior subset', cortex_a), ('Posterior subset', cortex_p)]:
     counts = ad.obs['layer_guess_reordered'].value_counts().to_dict()
     print(f'  {name}: {counts}')
 
