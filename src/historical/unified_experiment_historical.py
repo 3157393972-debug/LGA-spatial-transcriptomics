@@ -14,12 +14,14 @@ import scanpy as sc
 from scipy.stats import spearmanr
 from scipy.spatial import ConvexHull
 
-sys.path.insert(0, '/root/autodl-tmp')
-import run_rotation as R
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import run_rotation_historical as R
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-DATA_DIR = '/root/autodl-tmp/j'
-OUT_DIR = '/root/autodl-tmp/lga_unified'
+DATA_DIR = os.environ.get('DATA_DIR', '/root/autodl-tmp/j')
+OUT_DIR = os.environ.get('OUT_DIR', '/root/autodl-tmp/lga_unified')
 os.makedirs(OUT_DIR, exist_ok=True)
 
 LAYER_ORDER = ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'WM']
