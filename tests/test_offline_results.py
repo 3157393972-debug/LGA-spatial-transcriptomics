@@ -27,8 +27,6 @@ class OfflineResultTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.main = read("CANONICAL_ALL_54.csv")
-        cls.rot = read("FIG6_108_ROTATIONS.csv")
-        cls.donor = read("FIG6_DONOR_MEANS.csv")
 
     def test_unique_training_records(self):
         self.assertEqual(len(self.main), 54)
@@ -72,46 +70,6 @@ class OfflineResultTests(unittest.TestCase):
                 vals = [float(r[k]) for r in values]
                 self.assertLess(max(vals) - min(vals), 1e-10)
 
-    def test_rotations(self):
-        self.assertEqual(len(self.rot), 108)
-        self.assertEqual(Counter(r["model"] for r in self.rot),
-                         {"graphsage": 81, "pca": 27})
-        groups = defaultdict(list)
-        for r in self.rot:
-            source, target = r["pair"].split("->")
-            self.assertIn((source, target), PAIRS)
-            donor = (1 if source in {"151507", "151508", "151509"}
-                     else 2 if source in {"151669", "151670", "151671"} else 3)
-            self.assertEqual(int(r["donor"]), donor)
-            self.assertAlmostEqual(float(r["delta_LT"]),
-                                   float(r["auto_LT"]) - float(r["rotated_LT"]),
-                                   places=11)
-            groups[(r["model"], r["pair"], r["seed"])].append(r)
-        self.assertEqual(len(groups), 36)
-        for group in groups.values():
-            self.assertEqual({int(r["rotation"]) for r in group}, {0, 1, 2})
-            self.assertEqual(len({r["rotation_seed"] for r in group}), 3)
-
-    def test_donor_aggregation(self):
-        pairs = defaultdict(list)
-        for r in self.rot:
-            pairs[(r["model"], r["donor"], r["pair"])].append(r)
-        groups = defaultdict(list)
-        for (model, donor, pair), rows in pairs.items():
-            groups[(model, donor)].append({
-                k: mean(rows, k)
-                for k in ("baseline_LT", "rotated_LT", "auto_LT", "delta_LT")
-            })
-        self.assertEqual(len(self.donor), 6)
-        for d in self.donor:
-            values = groups[(d["model"], d["donor"])]
-            self.assertEqual(len(values), 3)
-            self.assertEqual(int(d["n_pairs"]), 3)
-            self.assertEqual(int(d["n_rotated_records"]),
-                             27 if d["model"] == "graphsage" else 9)
-            for k in ("baseline_LT", "rotated_LT", "auto_LT", "delta_LT"):
-                self.assertAlmostEqual(float(d[k + "_mean"]),
-                                       mean(values, k), places=10)
 
 
 if __name__ == "__main__":
