@@ -30,8 +30,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import normalize
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-DATA_DIR = '/root/autodl-tmp/j'
-OUT_DIR = '/root/autodl-tmp/lga_rotation_results'
+DATA_DIR = os.environ.get('DATA_DIR', '/root/autodl-tmp/j')
+OUT_DIR = os.environ.get('OUT_DIR', '/root/autodl-tmp/lga_rotation_results')
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # ============================================================
