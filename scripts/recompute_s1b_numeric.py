@@ -44,8 +44,8 @@ def lt(source: np.ndarray, target: np.ndarray, ys: np.ndarray, yt: np.ndarray) -
     source_n = source / np.linalg.norm(source, axis=1, keepdims=True)
     target_n = target / np.linalg.norm(target, axis=1, keepdims=True)
     transferred = ys[(target_n @ source_n.T).argmax(axis=1)]
-    common = np.intersect1d(np.unique(yt), np.unique(transferred))
-    mask = np.isin(yt, common) & np.isin(transferred, common)
+    common = np.intersect1d(np.unique(ys), np.unique(yt))
+    mask = np.isin(yt, common)
     if not mask.any():
         return 0.0
     return float(np.mean(yt[mask] == transferred[mask]))
