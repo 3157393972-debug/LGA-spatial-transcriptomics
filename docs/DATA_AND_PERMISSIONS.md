@@ -12,7 +12,7 @@ The human experiments use twelve dorsolateral prefrontal cortex sections from th
 
 The local analysis files follow the naming pattern `dlpfc_<section>.h5ad`. Their sizes, dimensions and SHA-256 fingerprints are recorded in [the input manifest](../data/paper1_input_manifest.json). The study data and layer annotations can be obtained through [spatialLIBD data access](https://research.libd.org/spatialLIBD/reference/fetch_data.html); the corresponding 10x matrices and image resources are listed in the [spatialLIBD raw-data table](https://github.com/LieberInstitute/spatialLIBD#raw-data).
 
-Anatomical annotations use the spatialLIBD `layer_guess_reordered` field. For D3, the 14,243 barcodes retained across the four local input sections have the same layer annotation as the corresponding official records. The 121 additional official spots have an NA layer annotation (28, 38, 26 and 29 by section). The manuscript reports input-object layer counts in Supplementary Table S9.
+Anatomical annotations use the spatialLIBD `layer_guess_reordered` field. For D3, the 14,243 barcodes retained across the four local input sections have the same layer annotation as the corresponding official records. The 121 additional official spots have an NA layer annotation (28, 38, 26 and 29 by section). The manuscript reports input-object layer counts in Supplementary Table S1.
 
 ## Mouse brain sections
 
