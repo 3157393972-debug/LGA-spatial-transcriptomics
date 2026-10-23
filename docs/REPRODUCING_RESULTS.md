@@ -9,7 +9,7 @@ python scripts/verify_aggregates.py
 python -m unittest discover -s tests -v
 ```
 
-The aggregate check reads the saved numerical results, including the 54 independent-section records used for Supplementary Tables S7–S8.
+The aggregate check reads the saved numerical results, including the 54 independent-section records used for Supplementary Tables S8–S9.
 
 ## Supplementary Figure S1B group-count analysis
 
