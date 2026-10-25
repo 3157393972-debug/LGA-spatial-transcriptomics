@@ -23,8 +23,8 @@ import torch.nn.functional as F
 import scanpy as sc
 from sklearn.metrics.pairwise import cosine_similarity
 
-sys.path.insert(0, "/root/autodl-tmp")
-import run_rotation as R
+sys.path.insert(0, os.path.dirname(__file__))
+import run_rotation_historical as R
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 DATA_DIR = "/root/autodl-tmp/j"

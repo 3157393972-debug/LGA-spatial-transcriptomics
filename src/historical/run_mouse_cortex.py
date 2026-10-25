@@ -2,7 +2,9 @@ import sys, os, time, json, gc
 import numpy as np
 import scanpy as sc
 import torch
-import run_rotation as R
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import run_rotation_historical as R
 
 DATA_DIR = '/root/autodl-tmp/mouse_brain'
 OUT_DIR = '/root/autodl-tmp/lga_paper_experiments'
