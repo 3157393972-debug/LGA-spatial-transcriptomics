@@ -65,8 +65,8 @@ def evaluate_lt_both(H_s, H_t, labels_s, labels_t):
     nn_idx = (H_t_n @ H_s_n.T).argmax(axis=1)
     predicted = labels_s[nn_idx]
     correct = (predicted == labels_t)
-    common = np.intersect1d(np.unique(labels_t), np.unique(predicted))
-    mask = np.isin(labels_t, common) & np.isin(predicted, common)
+    common = np.intersect1d(np.unique(labels_s), np.unique(labels_t))
+    mask = np.isin(labels_t, common)
     masked_acc = float(correct[mask].mean()) if mask.any() else 0.0
     full_acc = float(correct.mean())
     per_class = {str(k): float(correct[labels_t == k].mean()) for k in np.unique(labels_t)}

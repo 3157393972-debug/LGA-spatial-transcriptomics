@@ -12,8 +12,8 @@ assert len(data['results'])==3
 def check(idx, src_labels, target_labels, diagnostic):
     pred=src_labels[idx]
     good=(pred==target_labels)
-    common=np.intersect1d(np.unique(target_labels),np.unique(pred))
-    keep=np.isin(target_labels,common)&np.isin(pred,common)
+    common=np.intersect1d(np.unique(src_labels),np.unique(target_labels))
+    keep=np.isin(target_labels,common)
     assert len(target_labels)==diagnostic['n_target']
     assert np.sum(keep)==diagnostic['n_masked']
     assert np.sum(~keep)==diagnostic['n_excluded']
