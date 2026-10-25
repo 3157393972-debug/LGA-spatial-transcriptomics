@@ -1,6 +1,6 @@
 # Analysis workflows
 
-The repository provides the LGA implementation, experiment entry points, input identifiers and numerical results accompanying the manuscript. The workflows below use the environment in [Environment](ENVIRONMENT.md) and the study inputs described in [Data sources](DATA_AND_PERMISSIONS.md).
+The repository provides the LGA implementation, selected experiment entry points, input identifiers and numerical results accompanying the manuscript. The workflows below use the environment in [Environment](ENVIRONMENT.md) and the study inputs described in [Data sources](DATA_AND_PERMISSIONS.md).
 
 ## Numerical summaries and software tests
 
@@ -30,7 +30,7 @@ DATA_DIR=/path/to/dlpfc OUT="$PWD/outputs/independent" \
   bash scripts/run_independent_and_reanalyse.sh
 ```
 
-This workflow fits section-specific GraphSAGE and PCA representations and evaluates their cross-section label transfer. Pair, donor and seed results are provided in `results/`.
+This workflow fits section-specific GraphSAGE and PCA representations and evaluates their cross-section label transfer. The pair-by-seed records for this workflow are provided in `results/verified/CANONICAL_ALL_54.csv`.
 
 ## Other analysis entry points
 
@@ -41,9 +41,8 @@ DATA_DIR=/path/to/dlpfc OUT_DIR="$PWD/outputs/paired" \
   python src/historical/unified_experiment_historical.py
 ```
 
-The historical script imports its bundled `run_rotation_historical.py` implementation. It requires the listed scientific dependencies and local study inputs; numerical differences can arise across training environments. The saved result tables are provided separately under `results/`.
+The historical script imports its bundled `run_rotation_historical.py` implementation. It requires the listed scientific dependencies and local study inputs; numerical differences can arise across training environments.
 
 - `src/current/mouse_full_target_recheck.py` evaluates mouse full-target spatial pseudo-group transfer using local inputs.
-- The main Figure 6 evaluates PCA, random projection, GCN-AE and VAE representations under its source-to-target transfer protocol.
 
 See [Evaluation protocols](PROTOCOL_BOUNDARIES.md) for the training, correspondence and scoring settings used by each analysis.

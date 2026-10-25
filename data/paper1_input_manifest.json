@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "study": "LGA Paper 1 (BIB)",
-  "source": "author-provided BIB_INPUT_HASH_AND_STRUCTURE_20261014.md; recorded 2026-10-14; locally measured on AutoDL; not independently rehashed by this assistant",
+  "source": "Author-recorded local input metadata (2026-10-14); verify fingerprints against local copies.",
   "description": "Only exact H5AD research input fingerprints. Raw data and expression matrices are NOT distributed with this repository.",
   "files": [
     {
@@ -180,9 +180,5 @@
       },
       "scope": "All retained local barcodes reportedly appear in the official matching slice; not an expression-matrix value comparison."
     }
-  },
-  "excluded_other_project_files": [
-    "dlpfc_Br2720_ant/mid/post",
-    "dlpfc_Br2743_ant/mid/post"
-  ]
+  }
 }
